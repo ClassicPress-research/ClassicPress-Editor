@@ -2,3 +2,9 @@
 .tox-statusbar__branding {
 	display:none;
 	}
+
+/* Ensure admin menu doesn't obscure fullscreen editor. */
+#adminmenumain {
+    position: absolute;
+    z-index: -1;
+}
