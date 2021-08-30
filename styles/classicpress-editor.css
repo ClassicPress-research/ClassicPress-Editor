@@ -1,8 +1,3 @@
-/* Remove TinyMCE branding from lower-right corner of editor. */
-.tox-statusbar__branding {
-	display:none;
-	}
-
 /* Ensure admin menu doesn't obscure fullscreen editor. */
 #adminmenumain {
     position: absolute;
