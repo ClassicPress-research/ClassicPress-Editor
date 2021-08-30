@@ -1,1 +1,4 @@
-
+/* Hide core CP word count at lower-left of editor; preserve the space. */
+#wp-word-count {
+	visibility:hidden;
+	}
