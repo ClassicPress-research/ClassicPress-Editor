@@ -11,6 +11,8 @@ jQuery(document).ready(function($) {
 	// Define the editor settings.
 	tinymce.init({
 		selector: '#content', // Leave as-is; the editing textarea ID.
+		quickbars_insert_toolbar: '',
+		quickbars_selection_toolbar: '',
 		plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 		imagetools_cors_hosts: ['picsum.photos'],
 		menubar: 'file edit view insert format tools table help',
