@@ -41,6 +41,58 @@ class Editor {
 		// Performant enqueuing for prism.js (for codesample TinyMCE plugin.)
 		add_filter('the_content', [$this, 'enqueue_prism_assets']);
 
+		add_action('admin_print_footer_scripts', [$this, 'window_unload_error_fix']);
+
+	}
+
+	public function window_unload_error_fix() {
+		?>
+		<script>
+			jQuery(document).ready(function($) {
+
+				// Check screen
+				if(typeof window.wp.autosave === 'undefined')
+					return;
+
+				// Data Hack
+				var initialCompareData = {
+					post_title: $( '#title' ).val() || '',
+					content: $( '#content' ).val() || '',
+					excerpt: $( '#excerpt' ).val() || ''
+				};
+
+				var initialCompareString = window.wp.autosave.getCompareString(initialCompareData);
+
+				// Fixed postChanged()
+				window.wp.autosave.server.postChanged = function() {
+
+					var changed = false;
+
+					// If there are TinyMCE instances, loop through them.
+					if (window.tinymce) {
+						window.tinymce.each(['content', 'excerpt'], function(field) {
+							var editor = window.tinymce.get(field);
+
+							if ((editor && editor.isDirty()) || ($('#'+field ).val() || '') !== initialCompareData[field]) {
+								changed = true;
+								return false;
+							}
+
+						});
+
+						if (($('#title' ).val() || '') !== initialCompareData.post_title) {
+							changed = true;
+						}
+
+						return changed;
+					}
+
+					return window.wp.autosave.getCompareString() !== initialCompareString;
+
+				}
+			});
+		</script>
+		<?php
 	}
 
 	public function enqueue_admin_assets() {
