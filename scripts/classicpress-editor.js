@@ -10,9 +10,10 @@ jQuery(document).ready(function($) {
 
 	// Define the editor settings.
 	tinymce.init({
-		selector: '#content', // Leave as-is; the editing textarea ID.
+		branding: false,
 		quickbars_insert_toolbar: '',
 		quickbars_selection_toolbar: '',
+		selector: '#content', // Leave as-is; the editing textarea ID.
 		plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 		imagetools_cors_hosts: ['picsum.photos'],
 		menubar: 'file edit view insert format tools table help',
@@ -65,11 +66,10 @@ jQuery(document).ready(function($) {
 		quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
 		noneditable_noneditable_class: 'mceNonEditable',
 		toolbar_mode: 'sliding',
-		contextmenu: 'link image imagetools table',
+		contextmenu: false, //'link image imagetools table',
 		skin: useDarkMode ? 'oxide-dark' : 'oxide',
 		content_css: useDarkMode ? 'dark' : 'default',
-		content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-		branding: false
+		content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
 	});
 
 });
