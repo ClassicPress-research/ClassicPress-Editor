@@ -1,4 +1,13 @@
 /* Hide core CP word count at lower-left of editor; preserve the space. */
 #wp-word-count {
 	visibility:hidden;
-	}
+}
+
+
+/* Fix issues with z-index and the admin menu and bar 
+ {This CSS changes should better be applied to core once the editor is backed into it}
+*/
+#wpadminbar,
+#adminmenuwrap {
+	z-index: 1199;
+}
