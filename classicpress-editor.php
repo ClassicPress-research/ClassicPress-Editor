@@ -29,6 +29,11 @@ class Editor {
 
 	public function __construct() {
 
+		// Suppress Tiny in certain contexts.
+		if ($this->suppress_editor()) {
+			return;
+		}
+
 		// Disable TinyMCE v4.
 		add_filter('user_can_richedit', '__return_false');
 
@@ -42,6 +47,32 @@ class Editor {
 		add_filter('the_content', [$this, 'enqueue_prism_assets']);
 
 		add_action('admin_print_footer_scripts', [$this, 'window_unload_error_fix']);
+
+	}
+
+	/**
+	 * Don't load Tiny for comments editor, quick draft editor, other
+	 */
+	public function suppress_editor() {
+
+		// Not in a relevant view? Bail.
+		if (!is_admin() || empty($GLOBALS['pagenow'])) {
+			return false;
+		}
+
+		// Conditions for which to suppress the TinyMCE editor.
+		if ($GLOBALS['pagenow'] === 'index.php') { // Dashboard quick draft
+			if ($GLOBALS['plugin_page'] === null) {
+				return true;
+			}
+		} else if ($GLOBALS['pagenow'] === 'comment.php') {
+			if ($_GET['action'] === 'editcomment') { // Comment edit screen
+				return true;
+			}
+		}
+
+		// Do not suppress editor.
+		return false;
 
 	}
 
