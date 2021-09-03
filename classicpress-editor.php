@@ -2,9 +2,9 @@
 
 /**
  * -----------------------------------------------------------------------------
- * Plugin Name: ClassicPress Editor - Experimental
+ * Plugin Name: ClassicPress Editor Alternate - Experimental
  * Description: An integration of TinyMCE (v5) that brings a modern editing experience to ClassicPress while preserving the familiarity and function that users have grown to love. This plugin is not yet intended for production use.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: John Alarcon & ClassicPress Contributors
  * Author URI: https://forums.classicpress.net/u/code_potent
  * Text Domain: classicpress-editor
@@ -19,11 +19,41 @@
  * -----------------------------------------------------------------------------
  */
 
-namespace ClassicPress\TinyMce5;
+//namespace ClassicPress\TinyMce5;
 
 if (!defined('ABSPATH')) {
 	die();
 }
+
+add_filter( 'includes_url', 'try_tinymce5', 10, 2 );
+function try_tinymce5( $url, $path ) {
+	if ( strpos( $path, 'tinymce' ) !== false ) {
+		$url = plugins_url( $path, __FILE__ );
+	}
+	return $url;
+}
+
+add_filter( 'tiny_mce_before_init', 'try_mce_init', 10, 2  );
+function try_mce_init( $mceInit, $editor_id ) {
+	$mceInit['skin'] = 'oxide';
+	$mceInit['theme'] = 'silver';
+	return $mceInit;
+}
+
+add_filter( 'tiny_mce_plugins', 'try_mce_plugins', 11, 1 );
+function try_mce_plugins( $plugins ) {
+	foreach ( array( 'wordpress', 'wplink', 'colorpicker', 'textcolor', 'wpautoresize' ) as $word ) {
+		if ( ($i = array_search( $word, $plugins )) !== false ) {
+			unset( $plugins[$i] );
+		}
+	}
+	$plugins[] = 'autoresize';
+	return $plugins;
+}
+
+global $tinymce_version;
+$tinymce_version = '591-20210827';
+
 
 class Editor {
 
@@ -129,10 +159,10 @@ class Editor {
 	public function enqueue_admin_assets() {
 
 		// Enqueue TinyMCE JS.
-		wp_enqueue_script('classicpress-tinymce5', plugin_dir_url(__FILE__).'scripts/tinymce5/tinymce.min.js');
+		wp_enqueue_script('classicpress-tinymce5', plugin_dir_url(__FILE__).'js/tinymce/tinymce.min.js');
 
 		// Enqueue CP-centric TinyMCE JS.
-		wp_enqueue_script('classicpress-editor',   plugin_dir_url(__FILE__).'scripts/classicpress-editor.js', ['classicpress-tinymce5']);
+		wp_enqueue_script('classicpress-editor',   plugin_dir_url(__FILE__).'js/classicpress-editor.js', ['classicpress-tinymce5']);
 
 		// Enqueue CP-centric TinyMCE CSS.
 		wp_enqueue_style('classicpress-editor',    plugin_dir_url(__FILE__).'styles/classicpress-editor.css');
@@ -146,7 +176,7 @@ class Editor {
 		 * on an as-needed basis in the enqueue_prism_assets() method which runs
 		 * on the the_content filter.
 		 */
-		wp_register_script('classicpress-editor-syntax-highlighter', plugin_dir_url(__FILE__).'scripts/prism.js', [], time(), true);
+		wp_register_script('classicpress-editor-syntax-highlighter', plugin_dir_url(__FILE__).'js/prism.js', [], time(), true);
 		wp_register_style('classicpress-editor-syntax-highlighter',  plugin_dir_url(__FILE__).'styles/prism.css', [], time());
 
 	}
@@ -167,4 +197,5 @@ class Editor {
 }
 
 // Make beautiful all the things.
-new Editor;
+//new Editor;
+
