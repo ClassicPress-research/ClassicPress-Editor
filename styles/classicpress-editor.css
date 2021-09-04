@@ -2,3 +2,8 @@
 #wp-word-count {
 	visibility:hidden;
 	}
+
+/* Remove full-height/distraction-free screen option. It doesn't work. */
+#screen-options-wrap #adv-settings .editor-expand {
+	display:none!important;
+	}
