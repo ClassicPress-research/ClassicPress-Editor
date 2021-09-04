@@ -12,3 +12,8 @@
 .tox-fullscreen {
 	z-index:100100!important;
 	}
+
+/* Bring source code overlay to the top of the stack. */
+.tox-dialog {
+	z-index:100100!important;
+	}
