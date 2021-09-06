@@ -1,7 +1,7 @@
 // Full documentation at https://www.tiny.cloud/docs/
 
 // This wrapper may not be required.
-jQuery(document).ready(function($) {
+document.addEventListener('DOMContentLoaded', function() {
 
 	// The code here was taken from https://www.tiny.cloud/docs/demo/full-featured/#fullfeaturednon-premiumplugins
 
