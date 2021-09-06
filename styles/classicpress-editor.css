@@ -17,3 +17,9 @@
 .tox-dialog {
 	z-index:100100!important;
 	}
+
+/* Pull first-row-last-item button to the right. Not quite 100% working. */
+.tox-toolbar:first-child .tox-toolbar__group:last-child {
+	margin-left:auto!important;
+	}
+
