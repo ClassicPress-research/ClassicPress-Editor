@@ -79,7 +79,7 @@ class Editor {
 	public function window_unload_error_fix() {
 		?>
 		<script>
-			jQuery(document).ready(function($) {
+			document.addEventListener('DOMContentLoaded', function() {
 
 				// Check screen
 				if(typeof window.wp.autosave === 'undefined')
@@ -87,9 +87,9 @@ class Editor {
 
 				// Data Hack
 				var initialCompareData = {
-					post_title: $( '#title' ).val() || '',
-					content: $( '#content' ).val() || '',
-					excerpt: $( '#excerpt' ).val() || ''
+					post_title: document.getElementById( 'title' ).value || '',
+					content: document.getElementById( 'content' ).value || '',
+					excerpt: document.getElementById( 'excerpt' ).value || ''
 				};
 
 				var initialCompareString = window.wp.autosave.getCompareString(initialCompareData);
@@ -104,14 +104,14 @@ class Editor {
 						window.tinymce.each(['content', 'excerpt'], function(field) {
 							var editor = window.tinymce.get(field);
 
-							if ((editor && editor.isDirty()) || ($('#'+field ).val() || '') !== initialCompareData[field]) {
+							if ((editor && editor.isDirty()) || (document.getElementById(field ).value || '') !== initialCompareData[field]) {
 								changed = true;
 								return false;
 							}
 
 						});
 
-						if (($('#title' ).val() || '') !== initialCompareData.post_title) {
+						if ((document.getElementById('title' ).value || '') !== initialCompareData.post_title) {
 							changed = true;
 						}
 
