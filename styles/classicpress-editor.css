@@ -2,3 +2,24 @@
 #wp-word-count {
 	visibility:hidden;
 	}
+
+/* Remove full-height/distraction-free screen option. It doesn't work. */
+#screen-options-wrap #adv-settings .editor-expand {
+	display:none!important;
+	}
+
+/* Bring fullscreen overlay to the top of the stack. */
+.tox-fullscreen {
+	z-index:100100!important;
+	}
+
+/* Bring source code overlay to the top of the stack. */
+.tox-dialog {
+	z-index:100100!important;
+	}
+
+/* Pull first-row-last-item button to the right. Not quite 100% working. */
+.tox-toolbar:first-child .tox-toolbar__group:last-child {
+	margin-left:auto!important;
+	}
+
