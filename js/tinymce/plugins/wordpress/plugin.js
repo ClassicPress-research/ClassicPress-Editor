@@ -1,9 +1,9 @@
 /* global getUserSetting, setUserSetting */
 ( function( tinymce ) {
 // Set the minimum value for the modals z-index higher than #wpadminbar (100000)
-if ( ! tinymce.ui.FloatPanel.zIndex || tinymce.ui.FloatPanel.zIndex < 100100 ) {
+/*if ( ! tinymce.ui.FloatPanel.zIndex || tinymce.ui.FloatPanel.zIndex < 100100 ) {
 	tinymce.ui.FloatPanel.zIndex = 100100;
-}
+}*/
 
 tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	var wpAdvButton, style,
@@ -682,7 +682,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	 * Experimental: create a floating toolbar.
 	 * This functionality will change in the next releases. Not recommended for use by plugins.
 	 */
-	editor.on( 'preinit', function() {
+/*	editor.on( 'preinit', function() {
 		var Factory = tinymce.ui.Factory,
 			settings = editor.settings,
 			activeToolbar,
@@ -1053,7 +1053,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		editor.wp = editor.wp || {};
 		editor.wp._createToolbar = create;
 	}, true );
-
+	 */
 	function noop() {}
 
 	// Expose some functions (back-compat)
