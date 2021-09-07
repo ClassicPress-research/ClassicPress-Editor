@@ -35,8 +35,14 @@ function try_tinymce5( $url, $path ) {
 
 add_filter( 'tiny_mce_before_init', 'try_mce_init', 10, 2  );
 function try_mce_init( $mceInit, $editor_id ) {
-	$mceInit['skin'] = 'oxide';
-	$mceInit['theme'] = 'silver';
+	$mceInit['theme'] = 'silver';  //renaming silver folder to modern doesn't work
+	$mceInit['height'] = 700 + 75; //height now includes menu
+	$mceInit['min_height'] = 100 + 75;
+	$mceInit['resize'] = true;     //old value 'vertical' not available
+	
+	$mceInit['toolbar_location'] = 'top';
+	$mceInit['toolbar_persist'] = true;
+	$mceInit['custom_ui_selector'] = '.wp-editor-tools';
 	return $mceInit;
 }
 
@@ -47,7 +53,7 @@ function try_mce_plugins( $plugins ) {
 			unset( $plugins[$i] );
 		}
 	}
-	$plugins[] = 'autoresize';
+//	$plugins[] = 'autoresize'; //while wpautoresize is not working
 	return $plugins;
 }
 
