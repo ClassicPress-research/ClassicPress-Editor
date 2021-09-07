@@ -152,5 +152,5 @@ class Editor {
 }
 
 // Make beautiful all the things.
-//new Editor;
+new Editor;
 
