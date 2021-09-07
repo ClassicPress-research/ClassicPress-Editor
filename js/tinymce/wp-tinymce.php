@@ -33,8 +33,12 @@ if ( isset($_GET['c']) && 1 == $_GET['c'] && isset($_SERVER['HTTP_ACCEPT_ENCODIN
 	echo $file;
 } else {
 	// Back compat. This file shouldn't be used if this condition can occur (as in, if gzip isn't accepted).
+	echo "tinyMCEPreInit.mceInit.content.toolbar1 = tinyMCEPreInit.mceInit.content.toolbar1.replaceAll(',', ' ');";
+	echo "tinyMCEPreInit.mceInit.content.toolbar2 = tinyMCEPreInit.mceInit.content.toolbar2.replaceAll(',', ' ');";
+	echo "tinyMCEPreInit.mceInit.content.toolbar3 = tinyMCEPreInit.mceInit.content.toolbar3.replaceAll(',', ' ');";
+	echo "tinyMCEPreInit.mceInit.content.toolbar4 = tinyMCEPreInit.mceInit.content.toolbar4.replaceAll(',', ' ');";
 	echo get_file( $basepath . '/tinymce.min.js' );
-//	echo get_file( $basepath . '/plugins/compat3x/plugin.min.js' );
+	echo get_file( $basepath . '/plugins/compat3x/plugin.min.js' );
 	echo get_file( $basepath . '/plugins/compat4x/plugin.min.js' );
 }
 exit;
