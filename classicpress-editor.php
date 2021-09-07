@@ -66,6 +66,7 @@ class Editor {
 
 	public function filter_tinymce_init( $mceInit, $editor_id ) {
 		$mceInit['theme'] = 'silver';  //renaming silver folder to modern doesn't work
+		$mceInit['skin'] = 'oxide'; // or oxide-dark; needs to react to user light/dark OS setting
 		$mceInit['height'] = 700 + 75; //height now includes menu
 		$mceInit['min_height'] = 100 + 75;
 		$mceInit['resize'] = true;     //old value 'vertical' not available
