@@ -129,10 +129,10 @@ class Editor {
 	public function enqueue_admin_assets() {
 
 		// Enqueue TinyMCE JS.
-		wp_enqueue_script('classicpress-tinymce5', plugin_dir_url(__FILE__).'scripts/tinymce5/tinymce.min.js');
+		wp_enqueue_script('classicpress-tinymce5', plugin_dir_url(__FILE__).'js/tinymce5/tinymce.min.js');
 
 		// Enqueue CP-centric TinyMCE JS.
-		wp_enqueue_script('classicpress-editor',   plugin_dir_url(__FILE__).'scripts/classicpress-editor.js', ['classicpress-tinymce5']);
+		wp_enqueue_script('classicpress-editor',   plugin_dir_url(__FILE__).'js/classicpress-editor.js', ['classicpress-tinymce5']);
 
 		// Enqueue CP-centric TinyMCE CSS.
 		wp_enqueue_style('classicpress-editor',    plugin_dir_url(__FILE__).'styles/classicpress-editor.css');
@@ -146,7 +146,7 @@ class Editor {
 		 * on an as-needed basis in the enqueue_prism_assets() method which runs
 		 * on the the_content filter.
 		 */
-		wp_register_script('classicpress-editor-syntax-highlighter', plugin_dir_url(__FILE__).'scripts/prism.js', [], time(), true);
+		wp_register_script('classicpress-editor-syntax-highlighter', plugin_dir_url(__FILE__).'js/prism.js', [], time(), true);
 		wp_register_style('classicpress-editor-syntax-highlighter',  plugin_dir_url(__FILE__).'styles/prism.css', [], time());
 
 	}
