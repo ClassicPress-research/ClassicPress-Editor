@@ -32,9 +32,6 @@ class Editor {
 		global $tinymce_version;
 		$tinymce_version = '591-20210827';
 
-		// Enqueue frontend assets.
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
-
 		// Ensure TinyMCE is loading from within this plugin, not core.
 		add_filter( 'includes_url', [ $this, 'filter_tinymce_includes_url' ], 10, 2 );
 
@@ -52,9 +49,6 @@ class Editor {
 
 		// Filter external plugins; external buttons are filtered on mce_buttons hook.
 		add_filter( 'mce_external_plugins', [$this, 'filter_tinymce_external_plugins'], 10 );
-
-		// Performant enqueuing for prism.js (for codesample TinyMCE plugin.)
-		add_filter( 'the_content', [ $this, 'enqueue_prism_assets' ] );
 
 	}
 
@@ -127,31 +121,6 @@ class Editor {
 	public function filter_teenymce_buttons( $mce_buttons, $editor_id ) {
 
 		return $mce_buttons;
-
-	}
-
-	public function enqueue_public_assets() {
-
-		/**
-		 * The prism.js assets are only registered here. They are enqueued later
-		 * on an as-needed basis in the enqueue_prism_assets() method which runs
-		 * on the the_content filter.
-		 */
-		wp_register_script( 'classicpress-editor-syntax-highlighter', plugin_dir_url(__FILE__).'js/prism.js', [], time(), true );
-		wp_register_style( 'classicpress-editor-syntax-highlighter',  plugin_dir_url(__FILE__).'css/prism.css', [], time() );
-
-	}
-
-	public function enqueue_prism_assets($content) {
-
-		// If <pre lang="whatever" is found in $content, enqueue prism assets.
-		if ( preg_match( '/<pre *(\w*? *= *["].*?["]|(\w*)*?)>/', $content ) === 1 ) {
-			wp_enqueue_script( 'classicpress-editor-syntax-highlighter' );
-			wp_enqueue_style( 'classicpress-editor-syntax-highlighter' );
-		}
-
-		// Return the possibly-amended content.
-		return $content;
 
 	}
 
