@@ -89,8 +89,8 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	});
 
 	editor.on( 'focus', function() {
-        window.wpActiveEditor = editor.id;
-    });
+		window.wpActiveEditor = editor.id;
+	});
 
 	editor.on( 'BeforeSetContent', function( event ) {
 		var title;

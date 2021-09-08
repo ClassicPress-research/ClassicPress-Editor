@@ -692,8 +692,8 @@ tinymce.PluginManager.add( 'wpeditimage', function( editor ) {
 					// replace both the image and the caption elements with the pasted content.
 					// This matches the behavior when pasting over non-caption images.
 					if ( node.nodeName === 'IMG' ) {
-                        editor.$( captionParent ).remove();
-                    }
+						editor.$( captionParent ).remove();
+					}
 
 					editor.nodeChanged();
 				} else {

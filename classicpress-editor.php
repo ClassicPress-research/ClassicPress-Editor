@@ -44,7 +44,7 @@ class Editor {
 		add_filter( 'includes_url', [$this, 'filter_tinymce_includes_url'], 10, 2 );
 		
 		// Filter the TinyMCE config object.
-		add_filter( 'tiny_mce_before_init', [$this, 'filter_tinymce_init'], 10, 2  );
+		add_filter( 'tiny_mce_before_init', [$this, 'filter_tinymce_init'], 10, 2 );
 		
 		// Filter the plugins loaded by TinyMCE.
 		add_filter( 'tiny_mce_plugins', [$this, 'filter_tinymce_plugins'], 11 );
@@ -65,10 +65,10 @@ class Editor {
 	}
 
 	public function filter_tinymce_init( $mceInit, $editor_id ) {
-		$mceInit['theme'] = 'silver';  //renaming silver folder to modern doesn't work
+		$mceInit['theme'] = 'silver'; //renaming silver folder to modern doesn't work
 		$mceInit['height'] = 700 + 75; //height now includes menu
 		$mceInit['min_height'] = 100 + 75;
-		$mceInit['resize'] = true;     //old value 'vertical' not available
+		$mceInit['resize'] = true; //old value 'vertical' not available
 
 		$mceInit['toolbar_location'] = 'top';
 		$mceInit['toolbar_persist'] = true;
