@@ -38,14 +38,20 @@ class Editor {
 		// Ensure TinyMCE is loading from within this plugin, not core.
 		add_filter( 'includes_url', [ $this, 'filter_tinymce_includes_url' ], 10, 2 );
 
-		// Filter the TinyMCE config object.
+		// Filter the TinyMCE config objects.
 		add_filter( 'tiny_mce_before_init', [ $this, 'filter_tinymce_init' ], 10, 2 );
+		add_filter( 'teeny_mce_before_init', [ $this, 'filter_teenymce_init' ], 10, 2 );
 
-		// Filter the plugins loaded by TinyMCE.
+		// Visual Mode: filter core plugins and buttons.
 		add_filter( 'tiny_mce_plugins', [ $this, 'filter_tinymce_plugins' ], 11 );
-
-		// Filter the buttons added to the TinyMCE editor.
 		add_filter( 'mce_buttons', [ $this, 'filter_tinymce_buttons' ], 10, 2 );
+
+		// Text mode: filter core plugins and buttons.
+		add_filter( 'teeny_mce_plugins', [ $this, 'filter_teenymce_plugins' ], 10, 2 );
+		add_filter( 'teeny_mce_buttons', [ $this, 'filter_teenymce_buttons' ], 10, 2 );
+
+		// Filter external plugins; external buttons are filtered on mce_buttons hook.
+		add_filter( 'mce_external_plugins', [$this, 'filter_tinymce_external_plugins'], 10 );
 
 		// Performant enqueuing for prism.js (for codesample TinyMCE plugin.)
 		add_filter( 'the_content', [ $this, 'enqueue_prism_assets' ] );
@@ -95,6 +101,30 @@ class Editor {
 		// This is how to add buttons.
 		//$mce_buttons[] = 'code';
 		//$mce_buttons[] = 'codesample';
+
+		return $mce_buttons;
+
+	}
+
+	public function filter_tinymce_external_plugins( $external_plugins ) {
+
+		return $external_plugins;
+
+	}
+
+	public function filter_teenymce_init( $mceInit, $editor_id ) {
+
+		return $mceInit;
+
+	}
+
+	public function filter_teenymce_plugins( $plugins ) {
+
+		return $plugins;
+
+	}
+
+	public function filter_teenymce_buttons( $mce_buttons, $editor_id ) {
 
 		return $mce_buttons;
 
