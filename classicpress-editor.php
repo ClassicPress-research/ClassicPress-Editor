@@ -143,7 +143,7 @@ class Editor {
 		 * on the the_content filter.
 		 */
 		wp_register_script( 'classicpress-editor-syntax-highlighter', plugin_dir_url(__FILE__).'js/prism.js', [], time(), true );
-		wp_register_style( 'classicpress-editor-syntax-highlighter',  plugin_dir_url(__FILE__).'styles/prism.css', [], time() );
+		wp_register_style( 'classicpress-editor-syntax-highlighter',  plugin_dir_url(__FILE__).'css/prism.css', [], time() );
 
 	}
 
