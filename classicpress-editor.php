@@ -32,11 +32,6 @@ class Editor {
 		global $tinymce_version;
 		$tinymce_version = '591-20210827';
 
-		// Suppress Tiny in certain contexts.
-		if ( $this->suppress_editor() ) {
-			return;
-		}
-
 		// Enqueue frontend assets.
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 
@@ -102,36 +97,6 @@ class Editor {
 		//$mce_buttons[] = 'codesample';
 
 		return $mce_buttons;
-
-	}
-
-	/**
-	 * Don't load Tiny for comments editor, quick draft editor, other
-	 */
-	public function suppress_editor() {
-
-		// Not on the admin side? Bail.
-		if (!is_admin() || empty($GLOBALS['pagenow'])) {
-			return false;
-		}
-
-		// Conditions for which to suppress the TinyMCE editor.
-		if ($GLOBALS['pagenow'] === 'index.php') { // Dashboard quick draft
-			if (isset($GLOBALS['plugin_page'])) {
-				if ($GLOBALS['plugin_page'] === null) {
-					return true;
-				}
-			}
-		} else if (isset($GLOBALS['pagenow'])) {
-			if ($GLOBALS['pagenow'] === 'comment.php') {
-				if ($_GET['action'] === 'editcomment') { // Comment edit screen
-					return true;
-				}
-			}
-		}
-
-		// Do not suppress editor.
-		return false;
 
 	}
 
