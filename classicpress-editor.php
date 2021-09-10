@@ -30,6 +30,7 @@ class Editor {
 	public function __construct() {
 
 		global $tinymce_version;
+
 		$tinymce_version = '591-20210827';
 
 		// Ensure TinyMCE is loading from within this plugin, not core.
