@@ -70,11 +70,6 @@ class Editor {
 		$mceInit['toolbar1'] = 'formatselect | bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | wp_more | dfv | wp_adv | fullscreen ';
 		$mceInit['toolbar2'] = 'strikethrough hr | forecolor | pastetext | removeformat | charmap | outdent indent | undo redo | searchreplace ';
 		
-		// Filter plugins and toolbars.
-		$mceInit['plugins']  = apply_filters('mce_plugins',   $mceInit['plugins']);
-		$mceInit['toolbar1'] = apply_filters('mce_buttons',   $mceInit['toolbar1']);
-		$mceInit['toolbar2'] = apply_filters('mce_buttons_2', $mceInit['toolbar2']);
-		
 		// Return Tiny config.
 		return $mceInit;
 
