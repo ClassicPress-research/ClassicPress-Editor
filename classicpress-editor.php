@@ -61,7 +61,16 @@ class Editor {
 		$mceInit['toolbar_location'] = 'top';
 		$mceInit['toolbar_persist'] = true;
 		$mceInit['custom_ui_selector'] = '.wp-editor-tools';
-
+		
+		// Plugins to load.
+		$mceInit['plugins'] = 'charmap, hr, lists, media, paste, tabfocus, fullscreen, wpeditimage, wpemoji, wpgallery, wpdialogs, wptextpattern, wpview, searchreplace';
+		// wordpress, wplink, colorpicker, textcolor, wpautoresize, autoresize
+		
+		// Toolbar layouts.
+		$mceInit['toolbar1'] = 'formatselect | bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | wp_more | dfv | wp_adv | fullscreen ';
+		$mceInit['toolbar2'] = 'strikethrough hr | forecolor | pastetext | removeformat | charmap | outdent indent | undo redo | searchreplace ';
+		
+		// Return Tiny config.
 		return $mceInit;
 
 	}
