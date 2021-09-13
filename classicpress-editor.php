@@ -33,6 +33,9 @@ class Editor {
 
 		$tinymce_version = '591-20210827';
 
+		// Filter TinyMCE plugins.
+		add_filter( 'tiny_mce_plugins', [ $this, 'filter_tinymce_plugins' ], 11 );
+
 		// Ensure TinyMCE is loading from within this plugin, not core.
 		add_filter( 'includes_url', [ $this, 'filter_tinymce_includes_url' ], 10, 2 );
 
@@ -71,6 +74,21 @@ class Editor {
 		return $mceInit;
 
 	}
+
+	public function filter_tinymce_plugins( $plugins ) {
+
+		foreach ( array( 'wordpress', 'wplink', 'colorpicker', 'textcolor', 'wpautoresize' ) as $word ) {
+			if ( ($i = array_search( $word, $plugins )) !== false ) {
+				unset( $plugins[$i] );
+			}
+		}
+
+		// $plugins[] = 'autoresize'; //while wpautoresize is not working
+
+		return $plugins;
+
+	}
+
 
 }
 
