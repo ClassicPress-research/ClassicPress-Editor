@@ -3,12 +3,11 @@
 /**
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor - Experimental
- * Description: An integration of TinyMCE (v5) that brings a modern editing experience to ClassicPress while preserving the familiarity and function that users have grown to love. This plugin is not yet intended for production use.
- * Version: 1.0.0-alpha
+ * Description: An integration of TinyMCE version 5.9.  This plugin is not yet intended for production use.
+ * Version: 1.0.1-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * Author URI: https://www.classicpress.net
  * Text Domain: classicpress-editor
- * Domain Path: /languages
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
  * version 2, or later. It is distributed WITHOUT ANY WARRANTY; without even the
@@ -38,10 +37,10 @@ class Editor {
 
 		// Ensure TinyMCE is loading from within this plugin, not core.
 		add_filter( 'includes_url', [ $this, 'filter_tinymce_includes_url' ], 10, 2 );
+		add_filter( 'script_loader_src', [ $this, 'filter_editor_expand_url' ], 10, 2 );
 
 		// Filter the TinyMCE config objects.
 		add_filter( 'tiny_mce_before_init', [ $this, 'filter_tinymce_init' ], 10, 2 );
-		add_filter( 'teeny_mce_before_init', [ $this, 'filter_teenymce_init' ], 10, 2 );
 
 	}
 
@@ -52,8 +51,15 @@ class Editor {
 		}
 
 		return $url;
-
 	}
+	
+	public function filter_editor_expand_url( $src, $handle ) {
+		if ( $handle === 'editor-expand' ) {
+			$src = plugins_url( 'js/editor-expand.js', __FILE__ );
+		}
+		return $src;
+	}
+
 
 	public function filter_tinymce_init( $mceInit, $editor_id ) {
 
@@ -66,13 +72,6 @@ class Editor {
 		$mceInit['custom_ui_selector'] = '.wp-editor-tools';
 
 		return $mceInit;
-
-	}
-
-	public function filter_teenymce_init( $mceInit, $editor_id ) {
-
-		return $mceInit;
-
 	}
 
 	public function filter_tinymce_plugins( $plugins ) {
@@ -86,11 +85,9 @@ class Editor {
 		// $plugins[] = 'autoresize'; //while wpautoresize is not working
 
 		return $plugins;
-
 	}
 
 
 }
 
-// Make beautiful all the things.
 new Editor;
