@@ -41,6 +41,7 @@ class Editor {
 
 		// Filter the TinyMCE config objects.
 		add_filter( 'tiny_mce_before_init', [ $this, 'filter_tinymce_init' ], 10, 2 );
+		add_filter( 'teeny_mce_before_init', [ $this, 'filter_teenymce_init' ], 10, 2 );
 
 	}
 
@@ -51,6 +52,7 @@ class Editor {
 		}
 
 		return $url;
+		
 	}
 	
 	public function filter_editor_expand_url( $src, $handle ) {
@@ -72,8 +74,15 @@ class Editor {
 		$mceInit['custom_ui_selector'] = '.wp-editor-tools';
 
 		return $mceInit;
+		
 	}
 
+	public function filter_teenymce_init( $mceInit, $editor_id ) {
+
+		return $mceInit;
+
+	}
+	
 	public function filter_tinymce_plugins( $plugins ) {
 
 		foreach ( array( 'wordpress', 'wplink', 'colorpicker', 'textcolor', 'wpautoresize' ) as $word ) {
@@ -85,6 +94,7 @@ class Editor {
 		// $plugins[] = 'autoresize'; //while wpautoresize is not working
 
 		return $plugins;
+		
 	}
 
 
