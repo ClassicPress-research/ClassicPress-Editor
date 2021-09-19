@@ -13,45 +13,59 @@
  */
 (function (tinymce) {
 
-	function patchEditor(editor) {
+	function patchEditor4(editor) {
 		editor.addButton = function (name, settings) {
+			var classes = 'mce-ico mce-btn mce-i-' + name;
 			for (var key in settings) {
+				// 5.x removed cmd option
 				if (key.toLowerCase() === "cmd") {
 					settings.onAction = function () {
-						editor.execCommand(settings.key);
+						editor.execCommand(settings[key]);
 					};
 				}
-				if (key.toLowerCase() === "onclick") {
-					settings.onAction = settings.key;
+				// 4.x icon is a class name, 5.x icon is a name in icon pack
+				if (key.toLowerCase() === "icon") {
+					classes = 'mce-ico mce-btn mce-i-' + settings[key];
+					delete settings[key];
 				}
+				// 4.x onclick is 5.x onAction
+				if (key.toLowerCase() === "onclick") {
+					settings.onAction = settings[key];
+				}
+				// 4.x onpostrender is called once, 5.x onSetup is called each time it is created
 				if (key.toLowerCase() === "onpostrender") {
-					settings.onSetup = settings.key
+					settings.onSetup = settings[key]
 				}
 			}
-
-		return editor.ui.registry.addButton.call(this, name, settings);
+			// use empty text option to make 4.x CSS work
+			if (! settings.hasOwnProperty('text') ) {
+				settings['text'] = '<i class="'+ classes +'"></i>';
+			}
+		editor.ui.registry.addButton(name, settings);
 	};
 
 	editor.addContextToolbar = function (name, spec) {
 		for (var key in spec) {
+			// 4.x onclick is 5.x onAction
 			if (key.toLowerCase() === "onclick") {
-				spec.onAction = spec.key;
+				spec.onAction = spec[key];
 			}
 		}
-		return editor.ui.registry.addContextToolbar.call(this, name, spec);
+		editor.ui.registry.addContextToolbar(name, spec);
 	};
 
 	editor.addMenuItem = function (name, spec) {
 		for (var key in spec) {
+			// 4.x onclick is 5.x onAction
 			if (key.toLowerCase() === "onclick") {
-				spec.onAction = spec.key;
+				spec.onAction = spec[key];
 			}
 		}
-		return editor.ui.registry.addMenuItem.call(this, name, spec);
+		editor.ui.registry.addMenuItem(name, spec);
 	};
 
 	editor.addSidebar = function (name, spec) {
-		return editor.ui.registry.addSidebar.call(this, name, spec);
+		editor.ui.registry.addSidebar(name, spec);
 	};
 
 	editor.on('init', function (e) { 
@@ -79,7 +93,7 @@
 			};
 			var containerElm, iframeElm, containerSize, iframeSize;
 			containerElm = editor.getContainer();
-			iframeElm = editor.getContentAreaContainer().querySelector('iframe');
+			iframeElm = editor.iframeElement;
 			containerSize = getSize(containerElm);
 			iframeSize = getSize(iframeElm);
 			if (width !== null) {
@@ -96,6 +110,7 @@
 		
 		//Put 4.x classes on things used by editor-expand.js
 		var el = editor.getContainer();
+		el.classList.add('mce-tinymce'); // 5.x uses tox-tinymce
 		el.querySelector('.tox-toolbar-overlord').classList.add('mce-toolbar-grp');
 		el.querySelector('.tox-edit-area').classList.add('mce-edit-area');
 		el.querySelector('.tox-statusbar').classList.add('mce-statusbar');
@@ -103,7 +118,7 @@
 			el.querySelector('.tox-menubar').classList.add('mce-menubar');
 		}
 		
-		//Add override rules for 5.x classes
+		//Add override rules for 5.x classes since fullscreen is dynamically added
 		var hStyle = document.createElement( 'style' );
 		document.head.appendChild( hStyle );
 		var css = '.tox-fullscreen #wp-content-wrap .mce-menubar,\
@@ -120,7 +135,7 @@
 .tox-fullscreen #wp-content-wrap .tox-tinymce .mce-wp-dfw {\
 	display: none;\
 }\
-.post-php.mce-fullscreen #wpadminbar,\
+.post-php.tox-fullscreen #wpadminbar,\
 .tox-fullscreen #wp-content-wrap .mce-wp-dfw {\
 	display: none;\
 }';
@@ -132,10 +147,10 @@
 	}
 	
 	tinymce.on('SetupEditor', function (e) {
-		patchEditor(e.editor);
+		patchEditor4(e.editor);
 	});
 
 
-	tinymce.PluginManager.add("compat4x", patchEditor);
+	tinymce.PluginManager.add("compat4x", patchEditor4);
 
 })(tinymce);
