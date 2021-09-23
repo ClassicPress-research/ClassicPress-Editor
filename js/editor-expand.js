@@ -177,7 +177,7 @@
 				 * @returns {void}
 				 */
 				hideFloatPanels = _.debounce( function() {
-	//TODO				! $( '.mce-floatpanel:hover' ).length && window.tinymce.ui.FloatPanel.hideAll();
+	//TODO 5.x				! $( '.mce-floatpanel:hover' ).length && window.tinymce.ui.FloatPanel.hideAll();
 					$( '.mce-tooltip' ).hide();
 				}, 1000, true );
 
@@ -188,7 +188,7 @@
 
 			// Copy the editor instance.
 			mceEditor = editor;
-
+// TODO 5.x height includes UI
 			// Set the minimum height to the initial viewport height.
 			editor.settings.autoresize_min_height = autoresizeMinHeight;
 
@@ -1463,7 +1463,7 @@
 		$document.on( 'tinymce-editor-setup.focus', function( event, editor ) {
 			editor.ui.registry.addToggleButton( 'dfw', {
 				active: _isOn,
-				classes: 'wp-dfw btn widget',
+//				classes: 'wp-dfw btn widget',  //ignored in 5.x
 				disabled: ! _isActive,
 				onAction: toggle,
 				onSetup: function(buttonApi) {
@@ -1483,6 +1483,7 @@
 						button.setActive( false );
 					} );
 				},
+				text: '<span class="mce-wp-dfw mce-btn mce-widget"><i class="mce-ico mce-i-dfw"></i></span>',
 				tooltip: 'Distraction-free writing mode',
 				shortcut: 'Alt+Shift+W'
 			} );
