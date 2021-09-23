@@ -5,7 +5,7 @@
  * Released under LGPL License.
  *
  * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
+ * Version: 4.1
  */
 
 // Forked for WordPress so it can be turned on/off after loading.
@@ -31,6 +31,22 @@ tinymce.PluginManager.add( 'wpautoresize', function( editor ) {
 
 	function isFullscreen() {
 		return editor.plugins.fullscreen && editor.plugins.fullscreen.isFullscreen();
+	}
+
+	/**
+	 * Calls the resize x times in 100ms intervals. We can't wait for load events since
+	 * the CSS files might load async.
+	 */
+	function wait( times, interval, callback ) {
+		setTimeout( function() {
+			resize();
+
+			if ( times-- ) {
+				wait( times, interval, callback );
+			} else if ( callback ) {
+				callback();
+			}
+		}, interval );
 	}
 
 	function getInt( n ) {
@@ -98,17 +114,15 @@ tinymce.PluginManager.add( 'wpautoresize', function( editor ) {
 		if ( settings.autoresize_max_height && myHeight > settings.autoresize_max_height ) {
 			resizeHeight = settings.autoresize_max_height;
 			body.style.overflowY = 'auto';
-			docElm.style.overflowY = 'auto'; // Old IE
 		} else {
 			body.style.overflowY = 'hidden';
-			docElm.style.overflowY = 'hidden'; // Old IE
 			body.scrollTop = 0;
 		}
 
 		// Resize content element
 		if (resizeHeight !== oldSize) {
 			deltaSize = resizeHeight - oldSize;
-			DOM.setStyle( editor.iframeElement, 'height', resizeHeight + 'px' );
+			DOM.setStyle( editor.getContainer(), 'height', resizeHeight + 'px' );
 			oldSize = resizeHeight;
 
 			// WebKit doesn't decrease the size of the body element until the iframe gets resized
@@ -120,28 +134,6 @@ tinymce.PluginManager.add( 'wpautoresize', function( editor ) {
 			editor.fire( 'wp-autoresize', { height: resizeHeight, deltaHeight: e.type === 'nodechange' ? deltaSize : null } );
 		}
 	}
-
-	/**
-	 * Calls the resize x times in 100ms intervals. We can't wait for load events since
-	 * the CSS files might load async.
-	 */
-	function wait( times, interval, callback ) {
-		setTimeout( function() {
-			resize();
-
-			if ( times-- ) {
-				wait( times, interval, callback );
-			} else if ( callback ) {
-				callback();
-			}
-		}, interval );
-	}
-
-	// Define minimum height
-	settings.autoresize_min_height = parseInt(editor.getParam( 'autoresize_min_height', editor.getElement().offsetHeight), 10 );
-
-	// Define maximum height
-	settings.autoresize_max_height = parseInt(editor.getParam( 'autoresize_max_height', 0), 10 );
 
 	function on() {
 		if ( ! editor.dom.hasClass( editor.getBody(), 'wp-autoresize' ) ) {
@@ -167,6 +159,13 @@ tinymce.PluginManager.add( 'wpautoresize', function( editor ) {
 			oldSize = 0;
 		}
 	}
+
+	// Define minimum height
+	settings.autoresize_min_height = parseInt(editor.getParam( 'min_height', editor.getElement().offsetHeight), 10 );
+
+	// Define maximum height
+	settings.autoresize_max_height = parseInt(editor.getParam( 'max_height', 0), 10 );
+
 
 	if ( settings.wp_autoresize_on ) {
 		// Turn resizing on when the editor loads
