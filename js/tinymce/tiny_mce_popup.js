@@ -31,13 +31,13 @@ var tinyMCEPopup = {
     parentWin = self.getWin();
     tinymce = tinyMCE = parentWin.tinymce;
     self.editor = tinymce.EditorManager.activeEditor;
-   // self.params = self.editor.windowManager.getParams();
+// TODO 5.x    self.params = self.editor.windowManager.getParams();
   	self.params = null;
 
-  //  uiWindow = self.editor.windowManager.windows[self.editor.windowManager.windows.length - 1];
+// TODO 5.x  uiWindow = self.editor.windowManager.windows[self.editor.windowManager.windows.length - 1];
   	uiWindow = null;
-  //  self.features = uiWindow.features;
-  //  self.uiWindow = uiWindow;
+// TODO 5.x   self.features = uiWindow.features;
+// TODO 5.x   self.uiWindow = uiWindow;
   	self.features = self.uiWindow = uiWindow;
 
     settings = self.editor.settings;
@@ -47,6 +47,7 @@ var tinyMCEPopup = {
       if (settings.popup_css) {
         settings.popup_css = self.editor.documentBaseURI.toAbsolute(settings.popup_css);
       } else {
+// TODO 5.x examine classes from 3.x
         settings.popup_css = self.editor.baseURI.toAbsolute("plugins/compat3x/css/dialog.css");
       }
     }
@@ -181,19 +182,6 @@ var tinyMCEPopup = {
         self.id || window
       );
     }, 10);*/
-  },
-
-  /**
-   * Will executed the specified string when the page has been loaded. This function
-   * was added for compatibility with the 2.x branch.
-   *
-   * @method executeOnLoad
-   * @param {String} evil String to evalutate on init.
-   */
-  executeOnLoad: function (evil) {
-    this.onInit.add(function () {
-      eval(evil);
-    });
   },
 
   /**
