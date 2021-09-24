@@ -1,7 +1,8 @@
 /* global getUserSetting, setUserSetting */
 ( function( tinymce ) {
 // Set the minimum value for the modals z-index higher than #wpadminbar (100000)
-/*if ( ! tinymce.ui.FloatPanel.zIndex || tinymce.ui.FloatPanel.zIndex < 100100 ) {
+/* TODO 5.x removed ui.*
+if ( ! tinymce.ui.FloatPanel.zIndex || tinymce.ui.FloatPanel.zIndex < 100100 ) {
 	tinymce.ui.FloatPanel.zIndex = 100100;
 }*/
 
@@ -17,13 +18,14 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	if ( $ ) {
 		$( document ).triggerHandler( 'tinymce-editor-setup', [ editor ] );
 	}
-
+/* 5.x remove wpAdv button
 	function toggleToolbars( state ) {
 		var iframe, initial, toolbars,
 			pixels = 0;
 
 		initial = ( state === 'hide' );
 
+// TODO change theme.panel to ???
 		if ( editor.theme.panel ) {
 			toolbars = editor.theme.panel.find('.toolbar:not(.menubar)');
 		}
@@ -51,16 +53,16 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		if ( pixels && ! initial ) {
 			// Resize iframe, not needed in iOS
 			if ( ! tinymce.Env.iOS ) {
-				iframe = editor.getContentAreaContainer().firstChild;
+				iframe = editor.iframeElement;
 				DOM.setStyle( iframe, 'height', iframe.clientHeight + pixels );
 			}
 
 			if ( state === 'hide' ) {
 				setUserSetting('hidetb', '0');
-				wpAdvButton && wpAdvButton.active( false );
+				wpAdvButton && wpAdvButton.isActive( false );
 			} else {
 				setUserSetting('hidetb', '1');
-				wpAdvButton && wpAdvButton.active( true );
+				wpAdvButton && wpAdvButton.isActive( true );
 			}
 		}
 
@@ -68,12 +70,15 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	}
 
 	// Add the kitchen sink button :)
-	editor.addButton( 'wp_adv', {
+	editor.ui.registry.addToggleButton( 'wp_adv', {
+		text: '<span class="mce-widget mce-btn"><i class="mce-ico mce-i-wp_adv"></i></span>',
 		tooltip: 'Toolbar Toggle',
-		cmd: 'WP_Adv',
-		onPostRender: function() {
-			wpAdvButton = this;
-			wpAdvButton.active( getUserSetting( 'hidetb' ) === '1' ? true : false );
+		onAction: function () {
+			editor.execCommand('WP_Adv');
+		},
+		onSetup: function(api) {
+			wpAdvButton = api;
+			wpAdvButton.setActive( getUserSetting( 'hidetb' ) === '1' ? true : false );
 		}
 	});
 
@@ -87,7 +92,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	editor.addCommand( 'WP_Adv', function() {
 		toggleToolbars();
 	});
-
+*/
 	editor.on( 'focus', function() {
 		window.wpActiveEditor = editor.id;
 	});
@@ -365,15 +370,17 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 
 		dialog = editor.windowManager.open( {
 			title: 'Keyboard Shortcuts',
-			items: {
-				type: 'container',
-				classes: 'wp-help',
-				html: html
+			body: { type: 'panel',
+				items: [ {
+					type: 'htmlpanel',
+					classes: 'wp-help',
+					html: html
+				} ]
 			},
-			buttons: {
+			buttons: [ {
 				text: 'Close',
-				onclick: 'close'
-			}
+				type: 'cancel'
+			} ]
 		} );
 
 		if ( dialog.$el ) {
@@ -432,7 +439,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		editor.addMenuItem( 'add_media', {
 			text: 'Add Media',
 			icon: 'wp-media-library',
-			context: 'insert',
+			context: 'insert',  //removed in 5.x
 			cmd: 'WP_Medialib'
 		});
 	}
@@ -441,7 +448,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	editor.addMenuItem( 'wp_more', {
 		text: 'Insert Read More tag',
 		icon: 'wp_more',
-		context: 'insert',
+		context: 'insert', //removed in 5.x
 		onclick: function() {
 			editor.execCommand( 'WP_More', 'more' );
 		}
@@ -451,7 +458,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	editor.addMenuItem( 'wp_page', {
 		text: 'Page break',
 		icon: 'wp_page',
-		context: 'insert',
+		context: 'insert', //context removed in 5.x
 		onclick: function() {
 			editor.execCommand( 'WP_More', 'nextpage' );
 		}
@@ -581,15 +588,16 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 				labels[ name ] = value.replace( 'access', access ).replace( 'meta', meta );
 			} );
 
-			each( editor.theme.panel.find('button'), function( button ) {
+// TODO 5.x change theme.panel to ???
+/*			each( editor.theme.panel.find('button'), function( button ) {
 				if ( button && button.settings.tooltip && labels.hasOwnProperty( button.settings.tooltip ) ) {
 					// Need to translate now. We are changing the string so it won't match and cannot be translated later.
 					button.settings.tooltip = editor.translate( button.settings.tooltip ) + ' (' + labels[ button.settings.tooltip ] + ')';
 				}
 			} );
-
+*/
 			// listbox for the "blocks" drop-down
-			each( editor.theme.panel.find('listbox'), function( listbox ) {
+/*			each( editor.theme.panel.find('listbox'), function( listbox ) {
 				if ( listbox && listbox.settings.text === 'Paragraph' ) {
 					each( listbox.settings.values, function( item ) {
 						if ( item.text && labels.hasOwnProperty( item.text ) ) {
@@ -597,7 +605,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 						}
 					} );
 				}
-			} );
+			} );*/
 		}
 	});
 
@@ -641,7 +649,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			u: 'InsertUnorderedList',
 			o: 'InsertOrderedList',
 			m: 'WP_Medialib',
-			z: 'WP_Adv',
+//			z: 'WP_Adv',
 			t: 'WP_More',
 			d: 'Strikethrough',
 			h: 'WP_Help',
@@ -682,15 +690,49 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	 * Experimental: create a floating toolbar.
 	 * This functionality will change in the next releases. Not recommended for use by plugins.
 	 */
-/*	editor.on( 'preinit', function() {
-		var Factory = tinymce.ui.Factory,
+	var types = {};
+	editor.on( 'preinit', function() {
+		var Factory = {
+				add: function (type, typeClass) {
+				  types[type.toLowerCase()] = typeClass;
+				},
+				has: function (type) {
+				  return !!types[type.toLowerCase()];
+				},
+				get: function (type) {
+				  var lctype = type.toLowerCase();
+				  var controlType = types.hasOwnProperty(lctype) ? types[lctype] : null;
+				  if (controlType === null) {
+				    throw new Error('Could not find module for type: ' + type);
+				  }
+				  return controlType;
+				},
+				create: function (type, settings) {
+				  var ControlType;
+				  if (typeof type === 'string') {
+				    settings = settings || {};
+				    settings.type = type;
+				  } else {
+				    settings = type;
+				    type = settings.type;
+				  }
+				  type = type.toLowerCase();
+				  ControlType = types[type];
+				  if (!ControlType) {
+				    throw new Error('Could not find control by type: ' + type);
+				  }
+				  ControlType = new ControlType(settings);
+				  ControlType.type = type;
+				  return ControlType;
+				}
+			},
 			settings = editor.settings,
 			activeToolbar,
 			currentSelection,
 			timeout,
 			container = editor.getContainer(),
 			wpAdminbar = document.getElementById( 'wpadminbar' ),
-			mceIframe = document.getElementById( editor.id + '_ifr' ),
+			mceIframe = editor.iframeElement,
 			mceToolbar,
 			mceStatusbar,
 			wpStatusbar,
@@ -704,7 +746,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			if ( editor.id === 'content' ) {
 				wpStatusbar = document.getElementById( 'post-status-info' );
 			}
-
+/*
 		function create( buttons, bottom ) {
 			var toolbar,
 				toolbarItems = [],
@@ -1049,11 +1091,11 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		} );
 
 		editor.on( 'blur hide', hide );
-
+*/
 		editor.wp = editor.wp || {};
-		editor.wp._createToolbar = create;
+//		editor.wp._createToolbar = create;
 	}, true );
-	 */
+
 	function noop() {}
 
 	// Expose some functions (back-compat)

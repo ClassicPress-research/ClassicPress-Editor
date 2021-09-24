@@ -15,7 +15,8 @@
 
 	function patchEditor4(editor) {
 		editor.addButton = function (name, settings) {
-			var classes = 'mce-ico mce-btn mce-i-' + name;
+			var classes = 'mce-ico mce-i-' + name;
+			var wrap = 'mce-widget mce-btn'; //4.x wrapper has these classes
 			for (var key in settings) {
 				// 5.x removed cmd option
 				if (key.toLowerCase() === "cmd") {
@@ -25,8 +26,12 @@
 				}
 				// 4.x icon is a class name, 5.x icon is a name in icon pack
 				if (key.toLowerCase() === "icon") {
-					classes = 'mce-ico mce-btn mce-i-' + settings[key];
+					classes = 'mce-ico mce-i-' + settings[key];
 					delete settings[key];
+				}
+				// 4.x classes is ignored in 5.x
+				if (key.toLowerCase() === "classes") {
+					wrap = 'mce-' + settings[key].replaceAll(' ', ' mce-');
 				}
 				// 4.x onclick is 5.x onAction
 				if (key.toLowerCase() === "onclick") {
@@ -39,8 +44,9 @@
 			}
 			// use empty text option to make 4.x CSS work
 			if (! settings.hasOwnProperty('text') ) {
-				settings['text'] = '<i class="'+ classes +'"></i>';
+				settings['text'] = '<span class="'+ wrap +'"><i class="'+ classes +'"></i></span>';
 			}
+		console.warn('button '+name+': TinyMCE 4.x editor.addButton is 5.x editor.ui.registry.addButton');
 		editor.ui.registry.addButton(name, settings);
 	};
 
@@ -51,6 +57,7 @@
 				spec.onAction = spec[key];
 			}
 		}
+		console.warn('toolbar '+name+': TinyMCE 4.x editor.addContextToolbar is 5.x editor.ui.registry.addContextToolbar');
 		editor.ui.registry.addContextToolbar(name, spec);
 	};
 
@@ -61,14 +68,16 @@
 				spec.onAction = spec[key];
 			}
 		}
+		console.warn('menuItem '+name+': TinyMCE 4.x editor.addMenuItem is 5.x editor.ui.registry.addMenuItem');
 		editor.ui.registry.addMenuItem(name, spec);
 	};
 
 	editor.addSidebar = function (name, spec) {
+		console.warn('sidebar '+name+': TinyMCE 4.x editor.addSidebar is 5.x editor.ui.registry.addSidebar');
 		editor.ui.registry.addSidebar(name, spec);
 	};
 
-	editor.on('init', function (e) { 
+	editor.on('init', function (e) {
 		//Copy resizeTo function from 4.x Modern theme
 		editor.theme.resizeTo = function (width, height) {
 			var global$3 = tinymce.util.Tools.resolve('tinymce.dom.DOMUtils');
@@ -104,10 +113,12 @@
 			}
 			height = Math.max(getMinHeight(editor), height);
 			height = Math.min(getMaxHeight(editor), height);
-			DOM$1.setStyle(iframeElm, 'height', height);
+			//added next line for 5.x
+			DOM$1.setStyle(containerElm, 'height', height);
+	//		DOM$1.setStyle(iframeElm, 'height', height);
 			editor.fire('ResizeEditor');
 		};
-		
+
 		//Put 4.x classes on things used by editor-expand.js
 		var el = editor.getContainer();
 		el.classList.add('mce-tinymce'); // 5.x uses tox-tinymce
@@ -117,7 +128,7 @@
 		if (el.querySelector('.tox-menubar')) {
 			el.querySelector('.tox-menubar').classList.add('mce-menubar');
 		}
-		
+
 		//Add override rules for 5.x classes since fullscreen is dynamically added
 		var hStyle = document.createElement( 'style' );
 		document.head.appendChild( hStyle );
@@ -140,12 +151,12 @@
 	display: none;\
 }';
 			hStyle.innerHTML = css;
-			
+
 			//This moves the textarea to the bottom, like it is on 4.x
 			//el.parentNode.appendChild(document.querySelector('.wp-editor-area'));
 		});
 	}
-	
+
 	tinymce.on('SetupEditor', function (e) {
 		patchEditor4(e.editor);
 	});

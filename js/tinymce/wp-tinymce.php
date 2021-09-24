@@ -33,10 +33,37 @@ if ( isset($_GET['c']) && 1 == $_GET['c'] && isset($_SERVER['HTTP_ACCEPT_ENCODIN
 	echo $file;
 } else {
 	// Back compat. This file shouldn't be used if this condition can occur (as in, if gzip isn't accepted).
-	echo "tinyMCEPreInit.mceInit.content.toolbar1 = tinyMCEPreInit.mceInit.content.toolbar1.replaceAll(',', ' ');";
-	echo "tinyMCEPreInit.mceInit.content.toolbar2 = tinyMCEPreInit.mceInit.content.toolbar2.replaceAll(',', ' ');";
-	echo "tinyMCEPreInit.mceInit.content.toolbar3 = tinyMCEPreInit.mceInit.content.toolbar3.replaceAll(',', ' ');";
-	echo "tinyMCEPreInit.mceInit.content.toolbar4 = tinyMCEPreInit.mceInit.content.toolbar4.replaceAll(',', ' ');";
+	?>
+//this script is temporary, to fix toolbar parameter syntax
+//this is for the post edit page
+	document.addEventListener( 'DOMContentLoaded', function( e ) {
+		if (tinyMCEPreInit && tinyMCEPreInit.mceInit) {
+			for (var ed in tinyMCEPreInit.mceInit) {
+				let hold = '';
+				for (const key of ['toolbar1','toolbar2','toolbar3','toolbar4']) {
+					if (tinyMCEPreInit.mceInit[ed][key]) {
+						hold += tinyMCEPreInit.mceInit[ed][key].replaceAll(',', ' ') + ' |';
+					}
+					delete tinyMCEPreInit.mceInit[ed][key];
+				}
+				tinyMCEPreInit.mceInit[ed].toolbar = hold;
+				tinyMCEPreInit.mceInit[ed].theme = 'silver';
+			}
+		}
+	} );
+//this is for other pages like Text Widget
+	jQuery(document).on( 'wp-before-tinymce-init', function( event, init ) {
+		for (var key in init) {
+			if (key.startsWith('toolbar')) {
+				init[key] = init[key].replaceAll(',', ' ');
+			}
+			if (key === ('plugins')) {
+				init[key] = init[key].replaceAll('wplink', 'link');
+			}
+		}
+		init.theme = 'silver';
+	} );
+<?php
 	echo get_file( $basepath . '/tinymce.min.js' );
 	echo get_file( $basepath . '/plugins/compat3x/plugin.min.js' );
 	echo get_file( $basepath . '/plugins/compat4x/plugin.min.js' );

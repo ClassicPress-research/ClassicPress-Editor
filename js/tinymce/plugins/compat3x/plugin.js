@@ -228,7 +228,7 @@
 		e
 	  ];
 	});
-
+/* 5.x: remove patch conflicting with 4.x patch
 	var originalAddButton = editor.addButton;
 	editor.addButton = function (name, settings) {
 	  var originalOnPostRender;
@@ -258,7 +258,7 @@
 
 	  return originalAddButton.call(this, name, settings);
 	};
-
+*/
 	editor.on('init', function () {
 	  var undoManager = editor.undoManager, selection = editor.selection;
 
