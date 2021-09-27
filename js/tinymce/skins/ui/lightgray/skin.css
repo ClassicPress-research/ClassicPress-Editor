@@ -2674,20 +2674,21 @@ body.tox-dialog__disable-scroll {
   border: 1px solid transparent;
   border-radius: 2px;
   box-shadow: none;
+	box-sizing: content-box;
   color: #555d66;
   display: flex;
   flex: 0 0 auto;
   font-size: 0.875em;
   font-style: normal;
   font-weight: normal;
-  height: 34px;
+  height: 24px;
   justify-content: center;
-  margin: 2px 0 3px 0;
+  margin: 2px;
   outline: none;
   overflow: hidden;
   padding: 0;
   text-transform: none;
-  width: 34px;
+  width: 26px;
 }
 .tox .tox-tbtn svg {
   display: block;
@@ -2779,7 +2780,7 @@ body.tox-dialog__disable-scroll {
   width: 16px;
 }
 .tox .tox-tbtn--labeled {
-  padding: 0 4px;
+  padding: 0 3px;
   width: unset;
 }
 .tox .tox-tbtn__vlabel {
@@ -2791,14 +2792,14 @@ body.tox-dialog__disable-scroll {
   white-space: nowrap;
 }
 .tox .tox-tbtn--select {
-  margin: 2px 0 3px 0;
-  padding: 0 4px;
+  margin: 2px 0 2px 0;
+  padding: 0;
   width: auto;
 }
 .tox .tox-tbtn__select-label {
   cursor: default;
   font-weight: normal;
-  margin: 0 4px;
+  margin: 0 3px;
 }
 .tox .tox-tbtn__select-chevron {
   align-items: center;
@@ -2820,7 +2821,7 @@ body.tox-dialog__disable-scroll {
   border-radius: 3px;
   box-sizing: border-box;
   display: flex;
-  margin: 2px 0 3px 0;
+  margin: 2px 0 2px 0;
   overflow: hidden;
 }
 .tox .tox-split-button:hover {
@@ -2914,7 +2915,7 @@ body.tox-dialog__disable-scroll {
   display: flex;
   flex-wrap: wrap;
   margin: 0 0;
-  padding: 0 4px 0 4px;
+  padding: 0;
 }
 .tox .tox-toolbar__group--pull-right {
   margin-left: auto;
