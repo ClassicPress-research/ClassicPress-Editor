@@ -149,7 +149,8 @@
 .post-php.tox-fullscreen #wpadminbar,\
 .tox-fullscreen #wp-content-wrap .mce-wp-dfw {\
 	display: none;\
-}';
+}\
+.tox-fullscreen {z-index: 100010 !important;}';
 			hStyle.innerHTML = css;
 
 			//This moves the textarea to the bottom, like it is on 4.x
