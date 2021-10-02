@@ -14,6 +14,7 @@
 (function (tinymce) {
 
 	function patchEditor4(editor) {
+		var originalAddButton = editor.addButton;
 		editor.addButton = function (name, settings) {
 			var classes = 'mce-ico mce-i-' + name;
 			var wrap = 'mce-widget mce-btn'; //4.x wrapper has these classes
@@ -47,34 +48,35 @@
 				settings['text'] = '<span class="'+ wrap +'"><i class="'+ classes +'"></i></span>';
 			}
 		console.warn('button '+name+': TinyMCE 4.x editor.addButton is 5.x editor.ui.registry.addButton');
+		if (! settings.hasOwnProperty('onAction') ) {
+			originalAddButton(name, settings); //this should throw an error
+		}
 		editor.ui.registry.addButton(name, settings);
 	};
 
-	editor.addContextToolbar = function (name, spec) {
+	var originalAddMenuItem = editor.addMenuItem;
+	editor.addMenuItem = function (name, spec) {
 		for (var key in spec) {
+			// 5.x removed cmd option
+			if (key.toLowerCase() === "cmd") {
+				spec.onAction = function () {
+					editor.execCommand(spec[key]);
+				};
+			}
 			// 4.x onclick is 5.x onAction
 			if (key.toLowerCase() === "onclick") {
 				spec.onAction = spec[key];
 			}
-		}
-		console.warn('toolbar '+name+': TinyMCE 4.x editor.addContextToolbar is 5.x editor.ui.registry.addContextToolbar');
-		editor.ui.registry.addContextToolbar(name, spec);
-	};
-
-	editor.addMenuItem = function (name, spec) {
-		for (var key in spec) {
-			// 4.x onclick is 5.x onAction
-			if (key.toLowerCase() === "onclick") {
-				spec.onAction = spec[key];
+			// 4.x onpostrender is called once, 5.x onSetup is called each time it is created
+			if (key.toLowerCase() === "onpostrender") {
+				spec.onSetup = spec[key];
 			}
 		}
 		console.warn('menuItem '+name+': TinyMCE 4.x editor.addMenuItem is 5.x editor.ui.registry.addMenuItem');
+		if (! spec.hasOwnProperty('onAction') ) {
+			originalAddMenuItem(name, spec); //this should throw an error
+		}
 		editor.ui.registry.addMenuItem(name, spec);
-	};
-
-	editor.addSidebar = function (name, spec) {
-		console.warn('sidebar '+name+': TinyMCE 4.x editor.addSidebar is 5.x editor.ui.registry.addSidebar');
-		editor.ui.registry.addSidebar(name, spec);
 	};
 
 	editor.on('init', function (e) {

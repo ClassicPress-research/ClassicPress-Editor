@@ -65,7 +65,7 @@ if ( isset($_GET['c']) && 1 == $_GET['c'] && isset($_SERVER['HTTP_ACCEPT_ENCODIN
 	} );
 <?php
 	echo get_file( $basepath . '/tinymce.min.js' );
-	echo get_file( $basepath . '/plugins/compat3x/plugin.min.js' );
+//	echo get_file( $basepath . '/plugins/compat3x/plugin.min.js' );
 	echo get_file( $basepath . '/plugins/compat4x/plugin.min.js' );
 }
 exit;
