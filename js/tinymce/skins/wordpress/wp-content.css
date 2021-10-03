@@ -130,7 +130,7 @@ img[data-mce-selected]::selection {
 	background-color: transparent;
 }
 
-/* Styles for the ClassicPress plugins */
+/* Styles for the wordpress plugin */
 .mce-content-body img[data-mce-placeholder] {
 	border-radius: 0;
 	padding: 0;
@@ -265,7 +265,7 @@ a[data-wplink-url-error]:before {
 	z-index: -1;
 }
 
-/* Special styling for the suggestes policy text tutorial sections after they have been pasted in the editor. */
+/* Special styling for the suggested policy text tutorial sections after they have been pasted in the editor. */
 p.wp-policy-help {
 	background-color: #ff0;
 }

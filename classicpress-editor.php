@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor - Experimental
  * Description: An integration of TinyMCE version 5.9.  This plugin is not yet intended for production use.
- * Version: 1.0.2-alpha
+ * Version: 1.0.3-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * Author URI: https://www.classicpress.net
  * Text Domain: classicpress-editor
