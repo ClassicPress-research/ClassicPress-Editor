@@ -59,6 +59,8 @@ if ( isset($_GET['c']) && 1 == $_GET['c'] && isset($_SERVER['HTTP_ACCEPT_ENCODIN
 			}
 			if (key === ('plugins')) {
 				init[key] = init[key].replaceAll('wplink', 'link');
+				init[key] = init[key].replaceAll('colorpicker', '');
+				init[key] = init[key].replaceAll('textcolor', '');
 			}
 		}
 		init.theme = 'silver';
