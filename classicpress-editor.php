@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
  * Description: Update to TinyMCE version 5.9.  This plugin is not yet intended for production use.
- * Version: 1.0.5-alpha
+ * Version: 1.0.6-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $tinymce_version;
-$tinymce_version = '591-20210827';
+$tinymce_version = '591-20210827.0.6';
 
 // Ensure scripts are loading from within this plugin, not core.
 add_filter( 'includes_url', 'try_tinymce5_tinymce_includes_url', 10, 2 );

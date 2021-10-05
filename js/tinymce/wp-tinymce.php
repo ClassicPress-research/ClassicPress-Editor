@@ -19,7 +19,8 @@ function get_file($path) {
 	return @file_get_contents($path);
 }
 
-$expires_offset = 31536000; // 1 year
+//$expires_offset = 31536000; // 1 year
+$expires_offset = 60; // 60 seconds for testing
 
 header('Content-Type: application/javascript; charset=UTF-8');
 header('Vary: Accept-Encoding'); // Handle proxies
