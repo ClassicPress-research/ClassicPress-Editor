@@ -180,11 +180,17 @@
 		editor.once( 'preinit', function() {
 			var toolbar;
 
-			if ( editor.wp && editor.wp._createToolbar ) {
-				toolbar = editor.wp._createToolbar( [
-					'wp_view_edit',
-					'wp_view_remove'
-				] );
+//			if ( editor.wp && editor.wp._createToolbar ) {
+//				toolbar = editor.wp._createToolbar( [
+			if ( editor.wp ) {
+				editor.ui.registry.addContextToolbar('wpviewtoolbar', {
+				items: 'wp_view_edit wp_view_remove',
+				predicate: function (node) {
+					return !editor.selection.isCollapsed() && isView( node );
+				},
+				position: 'node',
+				scope: 'node'
+			} );
 
 				editor.on( 'wptoolbar', function( event ) {
 					if ( ! event.collapsed && isView( event.element ) ) {
