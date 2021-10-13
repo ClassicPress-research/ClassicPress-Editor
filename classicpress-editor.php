@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
  * Description: Update to TinyMCE version 5.9.  This plugin is not yet intended for production use.
- * Version: 1.0.7-alpha
+ * Version: 1.0.8-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $tinymce_version;
-$tinymce_version = '591-20210827.0.6';
+$tinymce_version = '591-20210827.0.8';
 
 // Ensure scripts are loading from within this plugin, not core.
 add_filter( 'includes_url', 'try_tinymce5_tinymce_includes_url', 10, 2 );
@@ -46,7 +46,7 @@ function try_tinymce5_editor_script_url( $src, $handle ) {
 }
 
 // Visual Mode: filter the TinyMCE config object.
-add_filter( 'tiny_mce_before_init', 'try_tinymce5_tinymce_init', 11, 2 );
+add_filter( 'tiny_mce_before_init', 'try_tinymce5_tinymce_init', 9, 2 );
 function try_tinymce5_tinymce_init( $mceInit, $editor_id ) {
 	$mceInit['theme'] = 'silver'; //renaming silver folder to modern doesn't work
 //	$mceInit['height'] = 300 + 75; //height now includes UI

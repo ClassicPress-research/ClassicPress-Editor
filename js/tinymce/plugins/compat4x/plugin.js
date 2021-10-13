@@ -34,6 +34,14 @@
 				if (key.toLowerCase() === "classes") {
 					wrap = 'mce-' + settings[key].replaceAll(' ', ' mce-');
 				}
+				// 4.x title is ignored in 5.x
+				if (key.toLowerCase() === "title") {
+					settings.tooltip = settings[key];
+				}
+				// 4.x image is ignored in 5.x
+				if (key.toLowerCase() === "image") {
+					classes = 'mce-ico mce-i-none' + '" style="background-image: url(\'' + settings[key] + '\')';
+				}
 				// 4.x onclick is 5.x onAction
 				if (key.toLowerCase() === "onclick") {
 					settings.onAction = settings[key];
@@ -124,7 +132,7 @@
 		//Put 4.x classes on things used by editor-expand.js
 		var el = editor.getContainer();
 		el.classList.add('mce-tinymce'); // 5.x uses tox-tinymce
-		el.querySelector('.tox-toolbar-overlord').classList.add('mce-toolbar-grp');
+		el.querySelector('.tox-toolbar-overlord,.tox-toolbar').classList.add('mce-toolbar-grp', 'mce-toolbar');
 		el.querySelector('.tox-edit-area').classList.add('mce-edit-area');
 		el.querySelector('.tox-statusbar').classList.add('mce-statusbar');
 		if (el.querySelector('.tox-menubar')) {
@@ -151,7 +159,8 @@
 .post-php.tox-fullscreen #wpadminbar,\
 .tox-fullscreen #wp-content-wrap .mce-wp-dfw {\
 	display: none;\
-}';
+}\
+.mce-ico.mce-ico {display: inline-block; vertical-align: text-top; background-size:cover} /*used to be in skin*/';
 			hStyle.innerHTML = css;
 
 			//This moves the textarea to the bottom, like it is on 4.x
