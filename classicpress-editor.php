@@ -2,8 +2,8 @@
 /**
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
- * Description: Update to TinyMCE version 5.9.  This plugin is not yet intended for production use.
- * Version: 1.0.9-alpha
+ * Description: Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
+ * Version: 1.0.10-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $tinymce_version;
-$tinymce_version = '592-20210908.0.9';
+$tinymce_version = '592-202110920.0.10';
 
 // Ensure scripts are loading from within this plugin, not core.
 add_filter( 'includes_url', 'try_tinymce5_tinymce_includes_url', 10, 2 );
@@ -54,10 +54,12 @@ function try_tinymce5_tinymce_init( $mceInit, $editor_id ) {
 //	$mceInit['resize'] = true; //old value 'vertical' for boolean option
 
 //	$mceInit['skin'] = 'darkgray';  //core loads lightgray
-	$mceInit['toolbar_mode'] = 'sliding';  //still testing best option
-	$mceInit['toolbar_location'] = 'top'; //auto was added and set as the default in TinyMCE 5.3
+	if ( $editor_id === 'content' ) {
+		$mceInit['toolbar_mode'] = 'sliding';  //still testing best option
+		$mceInit['toolbar_location'] = 'top'; //auto was added and set as the default in TinyMCE 5.3
 
-	$mceInit['custom_ui_selector'] = '.wp-editor-tools';
+		$mceInit['custom_ui_selector'] = '.wp-editor-tools';
+	}
 	return $mceInit;
 }
 
