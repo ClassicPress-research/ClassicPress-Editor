@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
  * Description: Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
- * Version: 1.0.11-alpha
+ * Version: 1.0.12-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $tinymce_version;
-$tinymce_version = '592-202110920.0.11';
+$tinymce_version = '592-202110920.0.12';
 
 // Ensure scripts are loading from within this plugin, not core.
 add_filter( 'includes_url', 'try_tinymce5_tinymce_includes_url', 10, 2 );
@@ -63,6 +63,15 @@ function try_tinymce5_tinymce_init( $mceInit, $editor_id ) {
 	return $mceInit;
 }
 
+// change in _mce_set_direction() to output both buttons
+add_filter( 'tiny_mce_before_init', 'try_tinymce5_tinymce_init_direction', 11, 2 );
+function try_tinymce5_tinymce_init_direction( $mceInit, $editor_id ) {
+	if ( $editor_id === 'content' ) {
+		$mceInit['toolbar1'] = str_replace( ',ltr', '', $mceInit['toolbar1']);
+	}
+	return $mceInit;
+}
+
 // Visual Mode: filter core plugins.
 add_filter( 'tiny_mce_plugins', 'try_tinymce5_tinymce_plugins', 11 );
 function try_tinymce5_tinymce_plugins( $plugins ) {
@@ -74,6 +83,7 @@ function try_tinymce5_tinymce_plugins( $plugins ) {
 	}
 	$plugins[] = 'searchreplace'; //add new feature, TODO: translations handled?
 	$plugins[] = 'link'; //while wplink is not working
+	$plugins[] = 'directionality';
 	return $plugins;
 }
 
@@ -81,7 +91,7 @@ function try_tinymce5_tinymce_plugins( $plugins ) {
 add_filter( 'mce_buttons_2', 'try_tinymce5_mce_buttons_2' );
 function try_tinymce5_mce_buttons_2( $buttons ) {
 	$hold = array_pop( $buttons );
-	array_push( $buttons, 'searchreplace', $hold );
+	array_push( $buttons, 'searchreplace', (is_rtl() ? 'rtl' : 'ltr'), (is_rtl() ? 'ltr' : 'rtl'), $hold );
 	return $buttons;
 }
 
