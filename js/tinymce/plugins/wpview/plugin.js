@@ -158,7 +158,7 @@
 		} );
 
 		editor.addButton( 'wp_view_edit', {
-			tooltip: 'Edit|button', // '|button' is not displayed, only used for context
+			tooltip: 'Edit',
 			icon: 'dashicon dashicons-edit',
 			onclick: function() {
 				var node = editor.selection.getNode();
@@ -192,11 +192,11 @@
 				scope: 'node'
 			} );
 
-				editor.on( 'wptoolbar', function( event ) {
-					if ( ! event.collapsed && isView( event.element ) ) {
-						event.toolbar = toolbar;
-					}
-				} );
+//				editor.on( 'wptoolbar', function( event ) {
+//					if ( ! event.collapsed && isView( event.element ) ) {
+//						event.toolbar = toolbar;
+//					}
+//				} );
 			}
 		} );
 
