@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
  * Description: Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
- * Version: 1.0.13-alpha
+ * Version: 1.0.14-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $tinymce_version;
-$tinymce_version = '592-202110920.0.13';
+$tinymce_version = '5100-20211011.0.14';
 
 // Ensure scripts are loading from within this plugin, not core.
 add_filter( 'includes_url', 'try_tinymce5_tinymce_includes_url', 10, 2 );
@@ -84,12 +84,14 @@ function try_tinymce5_tinymce_plugins( $plugins ) {
 	$plugins[] = 'searchreplace'; //add new feature, TODO: translations handled?
 	$plugins[] = 'link'; //while wplink is not working
 	$plugins[] = 'directionality';
+	$plugins[] = 'anchor';
 	return $plugins;
 }
 
 // Visual Mode: filter second row of buttons.
 add_filter( 'mce_buttons_2', 'try_tinymce5_mce_buttons_2' );
 function try_tinymce5_mce_buttons_2( $buttons ) {
+	array_unshift( $buttons, 'anchor' );
 	$hold = array_pop( $buttons );
 	array_push( $buttons, 'searchreplace', (is_rtl() ? 'rtl' : 'ltr'), (is_rtl() ? 'ltr' : 'rtl'), $hold );
 	return $buttons;
