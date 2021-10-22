@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
  * Description: Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
- * Version: 1.0.14-alpha
+ * Version: 1.0.15-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $tinymce_version;
-$tinymce_version = '5100-20211011.0.14';
+$tinymce_version = '5100-20211011.0.15';
 
 // Ensure scripts are loading from within this plugin, not core.
 add_filter( 'includes_url', 'try_tinymce5_tinymce_includes_url', 10, 2 );
@@ -45,7 +45,29 @@ function try_tinymce5_editor_script_url( $src, $handle ) {
 	return $src;
 }
 
-// Visual Mode: filter the TinyMCE config object.
+function try_tinymce5_default_textpatterns() {
+	//if this is kept, put a filter in it
+	return array(
+		//these all process on Enter key
+			array( 'start'=> '##', 'format'=> 'h2'),
+			array( 'start'=> '###', 'format'=> 'h3'),
+			array( 'start'=> '####', 'format'=> 'h4'),
+			array( 'start'=> '#####', 'format'=> 'h5'),
+			array( 'start'=> '######', 'format'=> 'h6'),
+			array( 'start'=> '>', 'format'=> 'blockquote'),
+			array( 'start'=> '---', 'replacement'=> '<hr />'),
+			array( 'start'=> '* ', 'cmd'=> 'InsertUnorderedList'),
+			array( 'start'=> '- ', 'cmd'=> 'InsertUnorderedList'),
+			array( 'start'=> '1. ', 'cmd'=> 'InsertOrderedList', 'value'=> array( 'list-style-type'=> 'decimal' )),
+			array( 'start'=> '1) ', 'cmd'=> 'InsertOrderedList', 'value'=> array( 'list-style-type'=> 'decimal' )),
+			array( 'start'=> 'a. ', 'cmd'=> 'InsertOrderedList', 'value'=> array('list-style-type'=> 'lower-alpha' )),
+			array( 'start'=> 'a) ', 'cmd'=> 'InsertOrderedList', 'value'=> array( 'list-style-type'=> 'lower-alpha' )),
+		//inline patterns have 'end', and process on either space or Enter
+			array( 'start'=> '`', 'end'=> '`', 'cmd'=> 'wp_code'),
+		);
+}
+
+// Visual Mode: filter the TinyMCE config object at an early priority.
 add_filter( 'tiny_mce_before_init', 'try_tinymce5_tinymce_init', 9, 2 );
 function try_tinymce5_tinymce_init( $mceInit, $editor_id ) {
 	$mceInit['theme'] = 'silver'; //renaming silver folder to modern doesn't work
@@ -63,6 +85,32 @@ function try_tinymce5_tinymce_init( $mceInit, $editor_id ) {
 	return $mceInit;
 }
 
+// Callback function for checking for a 'start' key.
+function try_need_start($var) {return array_key_exists('start', $var);}
+
+// Visual Mode: filter the TinyMCE config object at a late priority.
+add_filter( 'tiny_mce_before_init', 'try_tinymce5_tinymce_init_textpattern', 999, 2 );
+function try_tinymce5_tinymce_init_textpattern( $mceInit, $editor_id ) {
+	if ( $editor_id === 'content' ) {
+		//replace wptextpattern with textpattern
+		// TODO remove unit test for wptextpattern
+		$res=array();
+		if ( isset($mceInit['wptextpattern']) ) {
+			$parm = json_decode( $mceInit['wptextpattern'] );  //already encoded
+			foreach($parm as $list) { //can have inline, space, enter
+				$res = array_merge( $res, array_values( $list ) ); //make one array out of it
+			}
+			$parm = array_filter( $res, 'try_need_start' ); //remove ones with no start key
+			unset( $mceInit['wptextpattern'] );
+		}
+		else {
+			$parm = try_tinymce5_default_textpatterns();
+		}
+	  $mceInit['textpattern_patterns'] = wp_json_encode( $parm );
+	}
+	return $mceInit;
+}
+
 // change in _mce_set_direction() to output both buttons
 add_filter( 'tiny_mce_before_init', 'try_tinymce5_tinymce_init_direction', 11, 2 );
 function try_tinymce5_tinymce_init_direction( $mceInit, $editor_id ) {
@@ -76,7 +124,7 @@ function try_tinymce5_tinymce_init_direction( $mceInit, $editor_id ) {
 add_filter( 'tiny_mce_plugins', 'try_tinymce5_tinymce_plugins', 11 );
 function try_tinymce5_tinymce_plugins( $plugins ) {
 	// colorpicker and textcolor were made part of 5.x core
-	foreach ( array( 'wplink', 'colorpicker', 'textcolor' ) as $word ) {
+	foreach ( array( 'wplink', 'wptextpattern', 'colorpicker', 'textcolor' ) as $word ) {
 		if ( ($i = array_search( $word, $plugins )) !== false ) {
 			unset( $plugins[$i] );
 		}
@@ -85,6 +133,7 @@ function try_tinymce5_tinymce_plugins( $plugins ) {
 	$plugins[] = 'link'; //while wplink is not working
 	$plugins[] = 'directionality';
 	$plugins[] = 'anchor';
+	$plugins[] = 'textpattern';
 	return $plugins;
 }
 
