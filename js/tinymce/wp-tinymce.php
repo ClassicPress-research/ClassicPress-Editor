@@ -26,13 +26,13 @@ header('Content-Type: application/javascript; charset=UTF-8');
 header('Vary: Accept-Encoding'); // Handle proxies
 header('Expires: ' . gmdate( "D, d M Y H:i:s", time() + $expires_offset ) . ' GMT');
 header("Cache-Control: public, max-age=$expires_offset");
-
+/* temporary: always load the new version
 if ( isset($_GET['c']) && 1 == $_GET['c'] && isset($_SERVER['HTTP_ACCEPT_ENCODING'])
 	&& false !== stripos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') && ( $file = get_file($basepath . '/wp-tinymce.js.gz') ) ) {
 
 	header('Content-Encoding: gzip');
 	echo $file;
-} else {
+} else { */
 	// Back compat. This file shouldn't be used if this condition can occur (as in, if gzip isn't accepted).
 	?>
 //this script is temporary, to fix toolbar parameter syntax
@@ -70,5 +70,5 @@ if ( isset($_GET['c']) && 1 == $_GET['c'] && isset($_SERVER['HTTP_ACCEPT_ENCODIN
 	echo get_file( $basepath . '/tinymce.min.js' );
 //	echo get_file( $basepath . '/plugins/compat3x/plugin.min.js' );
 	echo get_file( $basepath . '/plugins/compat4x/plugin.min.js' );
-}
+//}
 exit;
