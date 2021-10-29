@@ -43,7 +43,7 @@ if ( isset($_GET['c']) && 1 == $_GET['c'] && isset($_SERVER['HTTP_ACCEPT_ENCODIN
 				let hold = '';
 				for (const key of ['toolbar1','toolbar2','toolbar3','toolbar4']) {
 					if (tinyMCEPreInit.mceInit[ed][key]) {
-						hold += tinyMCEPreInit.mceInit[ed][key].replaceAll(',', ' ') + ' |';
+						hold += tinyMCEPreInit.mceInit[ed][key].replace(/,/g, ' ') + ' |';
 					}
 					delete tinyMCEPreInit.mceInit[ed][key];
 				}
@@ -56,12 +56,12 @@ if ( isset($_GET['c']) && 1 == $_GET['c'] && isset($_SERVER['HTTP_ACCEPT_ENCODIN
 	jQuery(document).on( 'wp-before-tinymce-init', function( event, init ) {
 		for (var key in init) {
 			if (key.startsWith('toolbar')) {
-				init[key] = init[key].replaceAll(',', ' ');
+				init[key] = init[key].replace(/,/g, ' ');
 			}
 			if (key === ('plugins')) {
-				init[key] = init[key].replaceAll('wplink', 'link');
-				init[key] = init[key].replaceAll('colorpicker', '');
-				init[key] = init[key].replaceAll('textcolor', '');
+				init[key] = init[key].replace(/wplink/g, 'link');
+				init[key] = init[key].replace(/colorpicker/g, '');
+				init[key] = init[key].replace(/textcolor/g, '');
 			}
 		}
 		init.theme = 'silver';
