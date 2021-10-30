@@ -10,7 +10,6 @@
 
 /*global tinymce:true, console:true */
 /*eslint no-console:0, new-cap:0 */
-
 /**
  * This plugin adds missing events form the 4.x API back. Not every event is
  * properly supported but most things should work.
@@ -19,304 +18,216 @@
  *  - No editor.onEvent
  *  - Can't cancel execCommands with beforeExecCommand
  */
+//////////////////////////////////////////////////////
+////// !! The compat3x has been removed and the compat4x substituted.
+////// !! In order to ensure that compat4x is loaded in all cases, its code is here.
+/**
+ * plugin.js
+ *
+ * Released under LGPL License.
+ */
+
+/*global tinymce:true, console:true */
+/*eslint no-console:0, new-cap:0 */
+
+/**
+ * This plugin adds aliases from 4.x to 5.x and 4.x class names.
+ *
+ */
 (function (tinymce) {
-  var reported;
 
-  function noop() {
-  }
-
-  function log(apiCall) {
-	if (!reported && window && window.console) {
-	  reported = true;
-	  console.log("Deprecated TinyMCE API call: " + apiCall);
-	}
-  }
-
-  function Dispatcher(target, newEventName, argsMap, defaultScope) {
-	target = target || this;
-	var cbs = [];
-
-	if (!newEventName) {
-	  this.add = this.addToTop = this.remove = this.dispatch = noop;
-	  return;
-	}
-
-	this.add = function (callback, scope, prepend) {
-	  log('<target>.on' + newEventName + ".add(..)");
-
-	  // Convert callback({arg1:x, arg2:x}) -> callback(arg1, arg2)
-	  function patchedEventCallback(e) {
-		var callbackArgs = [];
-
-		if (typeof argsMap == "string") {
-		  argsMap = argsMap.split(" ");
-		}
-
-		if (argsMap && typeof argsMap !== "function") {
-		  for (var i = 0; i < argsMap.length; i++) {
-			callbackArgs.push(e[argsMap[i]]);
-		  }
-		}
-
-		if (typeof argsMap == "function") {
-		  callbackArgs = argsMap(newEventName, e, target);
-		  if (!callbackArgs) {
-			return;
-		  }
-		}
-
-		if (!argsMap) {
-		  callbackArgs = [e];
-		}
-
-		callbackArgs.unshift(defaultScope || target);
-
-		if (callback.apply(scope || defaultScope || target, callbackArgs) === false) {
-		  e.stopImmediatePropagation();
-		}
-	  }
-
-	  target.on(newEventName, patchedEventCallback, prepend);
-
-	  var handlers = {
-		original: callback,
-		patched: patchedEventCallback
-	  };
-
-	  cbs.push(handlers);
-	  return patchedEventCallback;
-	};
-
-	this.addToTop = function (callback, scope) {
-	  this.add(callback, scope, true);
-	};
-
-	this.remove = function (callback) {
-	  cbs.forEach(function (item, i) {
-		if (item.original === callback) {
-		  cbs.splice(i, 1);
-		  return target.off(newEventName, item.patched);
-		}
-	  });
-
-	  return target.off(newEventName, callback);
-	};
-
-	this.dispatch = function () {
-	  target.fire(newEventName);
-	  return true;
-	};
-  }
-
-  tinymce.util.Dispatcher = Dispatcher;
-  tinymce.onBeforeUnload = new Dispatcher(tinymce, "BeforeUnload");
-  tinymce.onAddEditor = new Dispatcher(tinymce, "AddEditor", "editor");
-  tinymce.onRemoveEditor = new Dispatcher(tinymce, "RemoveEditor", "editor");
-
-  tinymce.util.Cookie = {
-	get: noop, getHash: noop, remove: noop, set: noop, setHash: noop
-  };
-
-  function patchEditor(editor) {
-
-	function translate(str) {
-	  var prefix = editor.settings.language || "en";
-	  var prefixedStr = [prefix, str].join('.');
-	  var translatedStr = tinymce.i18n.translate(prefixedStr);
-
-	  return prefixedStr !== translatedStr ? translatedStr : tinymce.i18n.translate(str);
-	}
-
-	function patchEditorEvents(oldEventNames, argsMap) {
-	  tinymce.each(oldEventNames.split(" "), function (oldName) {
-		editor["on" + oldName] = new Dispatcher(editor, oldName, argsMap);
-	  });
-	}
-
-	function convertUndoEventArgs(type, event, target) {
-	  return [
-		event.level,
-		target
-	  ];
-	}
-
-	function filterSelectionEvents(needsSelection) {
-	  return function (type, e) {
-		if ((!e.selection && !needsSelection) || e.selection == needsSelection) {
-		  return [e];
-		}
-	  };
-	}
-
-	if (editor.controlManager) {
-	  return;
-	}
-
-	function cmNoop() {
-	  var obj = {}, methods = 'add addMenu addSeparator collapse createMenu destroy displayColor expand focus ' +
-		'getLength hasMenus hideMenu isActive isCollapsed isDisabled isRendered isSelected mark ' +
-		'postRender remove removeAll renderHTML renderMenu renderNode renderTo select selectByIndex ' +
-		'setActive setAriaProperty setColor setDisabled setSelected setState showMenu update';
-
-	  log('editor.controlManager.*');
-
-	  function _noop() {
-		return cmNoop();
-	  }
-
-	  tinymce.each(methods.split(' '), function (method) {
-		obj[method] = _noop;
-	  });
-
-	  return obj;
-	}
-
-	editor.controlManager = {
-	  buttons: {},
-
-	  setDisabled: function (name, state) {
-		log("controlManager.setDisabled(..)");
-
-		if (this.buttons[name]) {
-		  this.buttons[name].disabled(state);
-		}
-	  },
-
-	  setActive: function (name, state) {
-		log("controlManager.setActive(..)");
-
-		if (this.buttons[name]) {
-		  this.buttons[name].active(state);
-		}
-	  },
-
-	  onAdd: new Dispatcher(),
-	  onPostRender: new Dispatcher(),
-
-	  add: function (obj) {
-		return obj;
-	  },
-	  createButton: cmNoop,
-	  createColorSplitButton: cmNoop,
-	  createControl: cmNoop,
-	  createDropMenu: cmNoop,
-	  createListBox: cmNoop,
-	  createMenuButton: cmNoop,
-	  createSeparator: cmNoop,
-	  createSplitButton: cmNoop,
-	  createToolbar: cmNoop,
-	  createToolbarGroup: cmNoop,
-	  destroy: noop,
-	  get: noop,
-	  setControlType: cmNoop
-	};
-
-	patchEditorEvents("PreInit BeforeRenderUI PostRender Load Init Remove Activate Deactivate", "editor");
-	patchEditorEvents("Click MouseUp MouseDown DblClick KeyDown KeyUp KeyPress ContextMenu Paste Submit Reset");
-	patchEditorEvents("BeforeExecCommand ExecCommand", "command ui value args"); // args.terminate not supported
-	patchEditorEvents("PreProcess PostProcess LoadContent SaveContent Change");
-	patchEditorEvents("BeforeSetContent BeforeGetContent SetContent GetContent", filterSelectionEvents(false));
-	patchEditorEvents("SetProgressState", "state time");
-	patchEditorEvents("VisualAid", "element hasVisual");
-	patchEditorEvents("Undo Redo", convertUndoEventArgs);
-
-	patchEditorEvents("NodeChange", function (type, e) {
-	  return [
-		editor.controlManager,
-		e.element,
-		editor.selection.isCollapsed(),
-		e
-	  ];
-	});
-/* 5.x: remove patch conflicting with 4.x patch
-	var originalAddButton = editor.addButton;
-	editor.addButton = function (name, settings) {
-	  var originalOnPostRender;
-
-	  function patchedPostRender() {
-		editor.controlManager.buttons[name] = this;
-
-		if (originalOnPostRender) {
-		  return originalOnPostRender.apply(this, arguments);
-		}
-	  }
-
-	  for (var key in settings) {
-		if (key.toLowerCase() === "onpostrender") {
-		  originalOnPostRender = settings[key];
-		  settings.onPostRender = patchedPostRender;
-		}
-	  }
-
-	  if (!originalOnPostRender) {
-		settings.onPostRender = patchedPostRender;
-	  }
-
-	  if (settings.title) {
-		settings.title = translate(settings.title);
-	  }
-
-	  return originalAddButton.call(this, name, settings);
-	};
-*/
-	editor.on('init', function () {
-	  var undoManager = editor.undoManager, selection = editor.selection;
-
-	  undoManager.onUndo = new Dispatcher(editor, "Undo", convertUndoEventArgs, null, undoManager);
-	  undoManager.onRedo = new Dispatcher(editor, "Redo", convertUndoEventArgs, null, undoManager);
-	  undoManager.onBeforeAdd = new Dispatcher(editor, "BeforeAddUndo", null, undoManager);
-	  undoManager.onAdd = new Dispatcher(editor, "AddUndo", null, undoManager);
-
-	  selection.onBeforeGetContent = new Dispatcher(editor, "BeforeGetContent", filterSelectionEvents(true), selection);
-	  selection.onGetContent = new Dispatcher(editor, "GetContent", filterSelectionEvents(true), selection);
-	  selection.onBeforeSetContent = new Dispatcher(editor, "BeforeSetContent", filterSelectionEvents(true), selection);
-	  selection.onSetContent = new Dispatcher(editor, "SetContent", filterSelectionEvents(true), selection);
-	});
-
-	editor.on('BeforeRenderUI', function () {
-	  var windowManager = editor.windowManager;
-
-	  windowManager.onOpen = new Dispatcher();
-	  windowManager.onClose = new Dispatcher();
-	  windowManager.createInstance = function (className, a, b, c, d, e) {
-		log("windowManager.createInstance(..)");
-
-		var constr = tinymce.resolve(className);
-		return new constr(a, b, c, d, e);
-	  };
-	});
-  }
-
-  tinymce.on('SetupEditor', function (e) {
-	patchEditor(e.editor);
-  });
-
-  tinymce.PluginManager.add("compat3x", patchEditor);
-
-  tinymce.addI18n = function (prefix, o) {
-	var I18n = tinymce.util.I18n, each = tinymce.each;
-
-	if (typeof prefix == "string" && prefix.indexOf('.') === -1) {
-	  I18n.add(prefix, o);
-	  return;
-	}
-
-	if (!tinymce.is(prefix, 'string')) {
-	  each(prefix, function (o, lc) {
-		each(o, function (o, g) {
-		  each(o, function (o, k) {
-			if (g === 'common') {
-			  I18n.data[lc + '.' + k] = o;
-			} else {
-			  I18n.data[lc + '.' + g + '.' + k] = o;
+	function patchEditor4(editor) {
+		var originalAddButton = editor.addButton;
+		editor.addButton = function (name, settings) {
+			var classes = 'mce-ico mce-i-' + name;
+			var wrap = 'mce-widget mce-btn'; //4.x wrapper has these classes
+			for (var key in settings) {
+				// 5.x removed cmd option
+				if (key.toLowerCase() === "cmd") {
+					settings.onAction = function () {
+						editor.execCommand(settings[key]);
+					};
+				}
+				// 4.x icon is a class name, 5.x icon is a name in icon pack
+				if (key.toLowerCase() === "icon") {
+					classes = 'mce-ico mce-i-' + settings[key];
+					delete settings[key];
+				}
+				// 4.x classes is ignored in 5.x
+				if (key.toLowerCase() === "classes") {
+					wrap = 'mce-' + settings[key].replaceAll(' ', ' mce-');
+				}
+				// 4.x title is ignored in 5.x
+				if (key.toLowerCase() === "title") {
+					settings.tooltip = settings[key];
+				}
+				// 4.x image is ignored in 5.x
+				if (key.toLowerCase() === "image") {
+					classes = 'mce-ico mce-i-none' + '" style="background-image: url(\'' + settings[key] + '\')';
+				}
+				// 4.x onclick is 5.x onAction
+				if (key.toLowerCase() === "onclick") {
+					settings.onAction = settings[key];
+				}
+				// 4.x onpostrender is called once, 5.x onSetup is called each time it is created
+				if (key.toLowerCase() === "onpostrender") {
+					settings.onSetup = settings[key]
+				}
 			}
-		  });
+			// use empty text option to make 4.x CSS work
+			if (! settings.hasOwnProperty('text') ) {
+				settings['text'] = '<span class="'+ wrap +'"><i class="'+ classes +'"></i></span>';
+			}
+		console.warn('button '+name+': TinyMCE 4.x editor.addButton is 5.x editor.ui.registry.addButton');
+		if (! settings.hasOwnProperty('onAction') ) {
+			originalAddButton(name, settings); //this should throw an error
+		}
+		editor.ui.registry.addButton(name, settings);
+	};
+
+	var originalAddMenuItem = editor.addMenuItem;
+	editor.addMenuItem = function (name, spec) {
+		for (var key in spec) {
+			// 5.x removed cmd option
+			if (key.toLowerCase() === "cmd") {
+				spec.onAction = function () {
+					editor.execCommand(spec[key]);
+				};
+			}
+			// 4.x onclick is 5.x onAction
+			if (key.toLowerCase() === "onclick") {
+				spec.onAction = spec[key];
+			}
+			// 4.x onpostrender is called once, 5.x onSetup is called each time it is created
+			if (key.toLowerCase() === "onpostrender") {
+				spec.onSetup = spec[key];
+			}
+		}
+		console.warn('menuItem '+name+': TinyMCE 4.x editor.addMenuItem is 5.x editor.ui.registry.addMenuItem');
+		if (! spec.hasOwnProperty('onAction') ) {
+			originalAddMenuItem(name, spec); //this should throw an error
+		}
+		editor.ui.registry.addMenuItem(name, spec);
+	};
+
+	editor.on('init', function (e) {
+		//Copy resizeTo function from 4.x Modern theme
+		editor.theme.resizeTo = function (width, height) {
+			var global$3 = tinymce.util.Tools.resolve('tinymce.dom.DOMUtils');
+			var DOM$1 = global$3.DOM;
+			var getSize = function (elm) {
+				return {
+					width: elm.clientWidth,
+					height: elm.clientHeight
+				};
+			};
+			var getMinWidth = function (editor) {
+				return editor.getParam('min_width', 100, 'number');
+			};
+			var getMinHeight = function (editor) {
+				return editor.getParam('min_height', 100, 'number');
+			};
+			var getMaxWidth = function (editor) {
+				return editor.getParam('max_width', 65535, 'number');
+			};
+			var getMaxHeight = function (editor) {
+				return editor.getParam('max_height', 65535, 'number');
+			};
+			var containerElm, iframeElm, containerSize, iframeSize;
+			containerElm = editor.getContainer();
+			iframeElm = editor.iframeElement;
+			containerSize = getSize(containerElm);
+			iframeSize = getSize(iframeElm);
+			if (width !== null) {
+				width = Math.max(getMinWidth(editor), width);
+				width = Math.min(getMaxWidth(editor), width);
+				DOM$1.setStyle(containerElm, 'width', width + (containerSize.width - iframeSize.width));
+				DOM$1.setStyle(iframeElm, 'width', width);
+			}
+			height = Math.max(getMinHeight(editor), height);
+			height = Math.min(getMaxHeight(editor), height);
+			//added next line for 5.x
+			DOM$1.setStyle(containerElm, 'height', height);
+	//		DOM$1.setStyle(iframeElm, 'height', height);
+			editor.fire('ResizeEditor');
+		};
+
+		//Put 4.x classes on things used by editor-expand.js
+		var el = editor.getContainer();
+		el.classList.add('mce-tinymce'); // 5.x uses tox-tinymce
+		el.querySelector('.tox-toolbar-overlord,.tox-toolbar').classList.add('mce-toolbar-grp', 'mce-toolbar');
+		el.querySelector('.tox-edit-area').classList.add('mce-edit-area');
+		el.querySelector('.tox-statusbar').classList.add('mce-statusbar');
+		if (el.querySelector('.tox-menubar')) {
+			el.querySelector('.tox-menubar').classList.add('mce-menubar');
+		}
+
+		//Add override rules for 5.x classes since fullscreen is dynamically added
+		var hStyle = document.createElement( 'style' );
+		document.head.appendChild( hStyle );
+		var css = '.tox-fullscreen #wp-content-wrap .mce-menubar,\
+.tox-fullscreen #wp-content-wrap .mce-toolbar-grp,\
+.tox-fullscreen #wp-content-wrap .mce-edit-area,\
+.tox-fullscreen #wp-content-wrap .mce-statusbar {\
+	position: static !important;\
+	width: auto !important;\
+	padding: 0 !important;\
+}\
+.tox-fullscreen #wp-content-wrap .mce-statusbar {\
+	visibility: visible !important;\
+}\
+.tox-fullscreen #wp-content-wrap .tox-tinymce .mce-wp-dfw {\
+	display: none;\
+}\
+.post-php.tox-fullscreen #wpadminbar,\
+.tox-fullscreen #wp-content-wrap .mce-wp-dfw {\
+	display: none;\
+}\
+.mce-ico.mce-ico {display: inline-block; vertical-align: text-top; background-size:cover} /*used to be in skin*/';
+			hStyle.innerHTML = css;
+
+			//This moves the textarea to the bottom, like it is on 4.x
+			//el.parentNode.appendChild(document.querySelector('.wp-editor-area'));
 		});
-	  });
-	} else {
-	  each(o, function (o, k) {
-		I18n.data[prefix + '.' + k] = o;
-	  });
 	}
-  };
+
+	tinymce.on('SetupEditor', function (e) {
+		patchEditor4(e.editor);
+	});
+
+
+	tinymce.PluginManager.add("compat4x", patchEditor4);
+
 })(tinymce);
+
+//this script is temporary, to fix toolbar parameter syntax
+//this is for the post edit page
+	document.addEventListener( 'DOMContentLoaded', function( e ) {
+		if (tinyMCEPreInit && tinyMCEPreInit.mceInit) {
+			for (var ed in tinyMCEPreInit.mceInit) {
+				let hold = '';
+				for (const key of ['toolbar1','toolbar2','toolbar3','toolbar4']) {
+					if (tinyMCEPreInit.mceInit[ed][key]) {
+						hold += tinyMCEPreInit.mceInit[ed][key].replace(/,/g, ' ') + ' |';
+					}
+					delete tinyMCEPreInit.mceInit[ed][key];
+				}
+				tinyMCEPreInit.mceInit[ed].toolbar = hold;
+				tinyMCEPreInit.mceInit[ed].theme = 'silver';
+			}
+		}
+	} );
+//this is for other pages like Text Widget
+	jQuery(document).on( 'wp-before-tinymce-init', function( event, init ) {
+		for (var key in init) {
+			if (key.startsWith('toolbar')) {
+				init[key] = init[key].replace(/,/g, ' ');
+			}
+			if (key === ('plugins')) {
+				init[key] = init[key].replace(/wplink/g, 'link');
+				init[key] = init[key].replace(/colorpicker/g, '');
+				init[key] = init[key].replace(/textcolor/g, '');
+			}
+		}
+		init.theme = 'silver';
+	} );
