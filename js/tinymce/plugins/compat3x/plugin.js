@@ -162,32 +162,6 @@
 			el.querySelector('.tox-menubar').classList.add('mce-menubar');
 		}
 
-		//Add override rules for 5.x classes since fullscreen is dynamically added
-		var hStyle = document.createElement( 'style' );
-		document.head.appendChild( hStyle );
-		var css = '.tox-fullscreen #wp-content-wrap .mce-menubar,\
-.tox-fullscreen #wp-content-wrap .mce-toolbar-grp,\
-.tox-fullscreen #wp-content-wrap .mce-edit-area,\
-.tox-fullscreen #wp-content-wrap .mce-statusbar {\
-	position: static !important;\
-	width: auto !important;\
-	padding: 0 !important;\
-}\
-.tox-fullscreen #wp-content-wrap .mce-statusbar {\
-	visibility: visible !important;\
-}\
-.tox-fullscreen #wp-content-wrap .tox-tinymce .mce-wp-dfw {\
-	display: none;\
-}\
-.post-php.tox-fullscreen #wpadminbar,\
-.tox-fullscreen #wp-content-wrap .mce-wp-dfw {\
-	display: none;\
-}\
-.mce-ico.mce-ico {display: inline-block; vertical-align: text-top; background-size:cover} /*used to be in skin*/';
-			hStyle.innerHTML = css;
-
-			//This moves the textarea to the bottom, like it is on 4.x
-			//el.parentNode.appendChild(document.querySelector('.wp-editor-area'));
 		});
 	}
 

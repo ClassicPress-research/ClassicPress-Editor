@@ -45,6 +45,32 @@ function try_tinymce5_editor_script_url( $src, $handle ) {
 	return $src;
 }
 
+// for overriding wp-admin/css/edit$suffix.css
+add_action( 'admin_init', 'try_tinymce5_style_override' );
+function try_tinymce5_style_override() {
+	$code = '.tox-fullscreen #wp-content-wrap .mce-menubar,
+.tox-fullscreen #wp-content-wrap .mce-toolbar-grp,
+.tox-fullscreen #wp-content-wrap .mce-edit-area,
+.tox-fullscreen #wp-content-wrap .mce-statusbar {
+	position: static !important;
+	width: auto !important;
+	padding: 0 !important;
+}
+.tox-fullscreen #wp-content-wrap .mce-statusbar {
+	visibility: visible !important;
+}
+.tox-fullscreen #wp-content-wrap .tox-tinymce .mce-wp-dfw {
+	display: none;
+}
+.post-php.tox-fullscreen #wpadminbar,
+.tox-fullscreen #wp-content-wrap .mce-wp-dfw {
+	display: none;
+}
+.mce-ico.mce-ico {display: inline-block; vertical-align: text-top; background-size:cover} /*used to be in skin*/';
+	wp_add_inline_style( 'edit', $code );
+}
+
+
 function try_tinymce5_default_textpatterns() {
 	//if this is kept, put a filter in it
 	return array(
