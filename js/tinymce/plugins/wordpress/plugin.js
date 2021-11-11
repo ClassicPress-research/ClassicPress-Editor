@@ -333,17 +333,18 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 				table2.join('') +
 			'</table>';
 
-		if ( editor.plugins.wptextpattern && ( ! tinymce.Env.ie || tinymce.Env.ie > 8 ) ) {
+		if ( editor.plugins.textpattern && ( ! tinymce.Env.ie || tinymce.Env.ie > 8 ) ) {
 			// Text pattern section
 			html = html +
-				'<h2>' + __( 'When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo.' ) + '</h2>' +
+				'<h2>' + __( 'When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied when pressing Enter. Press the Undo button to undo.' ) + '</h2>' +
 				'<table class="wp-help-th-center fixed">' +
 					tr({ '*':  'Bullet list', '1.':  'Numbered list' }) +
 					tr({ '-':  'Bullet list', '1)':  'Numbered list' }) +
+					tr({ 'a.':  'Numbered list', 'a)':  'Numbered list' }) +
 				'</table>';
 
 			html = html +
-				'<h2>' + __( 'The following formatting shortcuts are replaced when pressing Enter. Press Escape or the Undo button to undo.' ) + '</h2>' +
+				'<h2>' + __( 'The following formatting shortcuts are replaced when pressing Enter. Press the Undo button to undo.' ) + '</h2>' +
 				'<table class="wp-help-single">' +
 					tr({ '>': 'Blockquote' }) +
 					tr({ '##': 'Heading 2' }) +
@@ -468,7 +469,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		if ( tinymce.Env.webkit && ( e.command === 'InsertUnorderedList' || e.command === 'InsertOrderedList' ) ) {
 			if ( ! style ) {
 				style = editor.dom.create( 'style', {'type': 'text/css'},
-					'#tinymce,#tinymce span,#tinymce li,#tinymce li>span,#tinymce p,#tinymce p>span{font:medium sans-serif;color:#000;line-height:normal;}');
+					'#tinymce,#tinymce span,#tinymce li,#tinymce li>span,#tinymce p,#tinymce p>span{font:medium sans-serif;line-height:normal;}');
 			}
 
 			editor.getDoc().head.appendChild( style );
@@ -735,8 +736,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			mceIframe = editor.iframeElement,
 			mceToolbar,
 			mceStatusbar,
-			wpStatusbar,
-			isChromeRtl = ( editor.rtl && /Chrome/.test( navigator.userAgent ) );
+			wpStatusbar;
 
 			if ( container ) {
 				mceToolbar = tinymce.$( '.mce-toolbar-grp', container )[0];
@@ -981,15 +981,6 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			toolbar.on( 'show', function() {
 				this.reposition();
 
-				if ( isChromeRtl ) {
-					tinymce.$( '.mce-widget.mce-tooltip' ).addClass( 'wp-hide-mce-tooltip' );
-				}
-			} );
-
-			toolbar.on( 'hide', function() {
-				if ( isChromeRtl ) {
-					tinymce.$( '.mce-widget.mce-tooltip' ).removeClass( 'wp-hide-mce-tooltip' );
-				}
 			} );
 
 			toolbar.on( 'keydown', function( event ) {
@@ -1083,11 +1074,11 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		// For full height editor.
 		editor.on( 'resizewindow scrollwindow', hide );
 		// For scrollable editor.
-		editor.dom.bind( editor.getWin(), 'resize scroll', hide );
+		editor.dom.bind( editor.getWin(), 'resize scroll', hide ); //#42018 removes resize
 
 		editor.on( 'remove', function() {
 			editor.off( 'resizewindow scrollwindow', hide );
-			editor.dom.unbind( editor.getWin(), 'resize scroll', hide );
+			editor.dom.unbind( editor.getWin(), 'resize scroll', hide ); //#42018 removes resize
 		} );
 
 		editor.on( 'blur hide', hide );
@@ -1095,7 +1086,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		editor.wp = editor.wp || {};
 //		editor.wp._createToolbar = create;
 	}, true );
-
+	 
 	function noop() {}
 
 	// Expose some functions (back-compat)
