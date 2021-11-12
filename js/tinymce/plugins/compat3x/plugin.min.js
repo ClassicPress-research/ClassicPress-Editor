@@ -179,14 +179,11 @@
 	document.addEventListener( 'DOMContentLoaded', function( e ) {
 		if (tinyMCEPreInit && tinyMCEPreInit.mceInit) {
 			for (var ed in tinyMCEPreInit.mceInit) {
-				let hold = '';
 				for (const key of ['toolbar1','toolbar2','toolbar3','toolbar4']) {
 					if (tinyMCEPreInit.mceInit[ed][key]) {
-						hold += tinyMCEPreInit.mceInit[ed][key].replace(/,/g, ' ') + ' |';
+						tinyMCEPreInit.mceInit[ed][key] = tinyMCEPreInit.mceInit[ed][key].replace(/,/g, ' ');
 					}
-					delete tinyMCEPreInit.mceInit[ed][key];
 				}
-				tinyMCEPreInit.mceInit[ed].toolbar = hold;
 				tinyMCEPreInit.mceInit[ed].theme = 'silver';
 			}
 		}

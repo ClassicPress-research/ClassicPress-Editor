@@ -2,8 +2,8 @@
 /**
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
- * Description: .20 backports WP ticket 42018. Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
- * Version: 1.0.20-alpha
+ * Description: .21 reverts toolbar to numbered mode. Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
+ * Version: 1.0.21-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $tinymce_version;
-$tinymce_version = '5100-20211011.0.20';
+$tinymce_version = '5100-20211011.0.21';
 
 // Ensure scripts are loading from within this plugin, not core.
 add_filter( 'includes_url', 'try_tinymce5_tinymce_includes_url', 10, 2 );
@@ -112,7 +112,6 @@ function try_tinymce5_tinymce_init( $mceInit, $editor_id ) {
 
 //	$mceInit['skin'] = 'darkgray';  //core loads lightgray
 	if ( $editor_id === 'content' ) {
-		$mceInit['toolbar_mode'] = 'sliding';  //still testing best option
 		$mceInit['toolbar_location'] = 'top'; //auto was added and set as the default in TinyMCE 5.3
 
 		$mceInit['custom_ui_selector'] = '.wp-editor-tools';
