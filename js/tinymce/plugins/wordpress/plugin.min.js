@@ -428,10 +428,17 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		cmd: 'WP_Help'
 	});
 
-	editor.addButton( 'wp_code', {
+	editor.ui.registry.addToggleButton( 'wp_code', {
+		icon: 'sourcecode',
 		tooltip: 'Code',
-		cmd: 'WP_Code',
-		stateSelector: 'code'
+		onAction: function() {
+			editor.execCommand( 'WP_Code' );
+		},
+		onSetup: function (api) {
+			editor.formatter.formatChanged('code', function (state) {
+				api.setActive(state);
+			});
+		}
 	});
 
 	// Menubar

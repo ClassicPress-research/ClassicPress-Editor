@@ -2,8 +2,8 @@
 /**
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
- * Description: .21 reverts toolbar to numbered mode. Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
- * Version: 1.0.21-alpha
+ * Description: .22 fixes the WP_Code button. Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
+ * Version: 1.0.22-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $tinymce_version;
-$tinymce_version = '5100-20211011.0.21';
+$tinymce_version = '5100-20211011.0.22';
 
 // Ensure scripts are loading from within this plugin, not core.
 add_filter( 'includes_url', 'try_tinymce5_tinymce_includes_url', 10, 2 );
