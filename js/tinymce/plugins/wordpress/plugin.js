@@ -374,7 +374,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			body: { type: 'panel',
 				items: [ {
 					type: 'htmlpanel',
-					classes: 'wp-help',
+					classes: 'wp-help', // ignored in 5.x
 					html: html
 				} ]
 			},
@@ -1093,7 +1093,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		editor.wp = editor.wp || {};
 //		editor.wp._createToolbar = create;
 	}, true );
-	 
+
 	function noop() {}
 
 	// Expose some functions (back-compat)

@@ -7,7 +7,7 @@
 .mce-tinymce {
 	box-shadow: none;
 }
-
+/* not needed
 .mce-container,
 .mce-container *,
 .mce-widget,
@@ -22,8 +22,8 @@
 	font-size: 13px;
 	line-height: 150%;
 }
-
-/* TinyMCE windows */
+*/
+/* TinyMCE windows *//* handled in skin, dialog.less
 #mce-modal-block,
 #mce-modal-block.mce-fade {
 	opacity: 0.7;
@@ -98,7 +98,7 @@ div.mce-tab:focus {
 .mce-window .mce-foot {
 	border-top: 1px solid #ddd;
 }
-
+*/
 .mce-textbox,
 .mce-checkbox i.mce-i-checkbox,
 #wp-link .query-results {
@@ -115,7 +115,7 @@ div.mce-tab:focus {
 	border-color: #5b9dd9;
 	box-shadow: 0 0 2px rgba(30,140,190,0.8);
 }
-
+/* not available
 .mce-window .mce-wp-help {
 	height: 360px;
 	width: 460px;
@@ -129,16 +129,18 @@ div.mce-tab:focus {
 .mce-window .mce-wp-help > .mce-container-body {
 	width: auto !important;
 }
-
+*/
+.tox .tox-dialog {
+	max-height: 90vh;
+}
 .tox-dialog .wp-editor-help {
 	padding: 10px 10px 0 20px;
 }
 
-.tox-dialog .wp-editor-help h2,
+.tox-dialog .tox-dialog__body-content .wp-editor-help h2,
 .tox-dialog .wp-editor-help p {
 	margin: 8px 0;
 	white-space: normal;
-	font-size: 14px;
 	font-weight: 400;
 }
 
@@ -171,7 +173,6 @@ div.mce-tab:focus {
 
 .tox-dialog .wp-editor-help td,
 .tox-dialog .wp-editor-help th {
-	font-size: 13px;
 	padding: 5px;
 	vertical-align: middle;
 	word-wrap: break-word;
@@ -179,7 +180,6 @@ div.mce-tab:focus {
 }
 
 .tox-dialog .wp-editor-help th {
-	font-weight: 600;
 	padding-bottom: 0;
 }
 
@@ -196,7 +196,7 @@ div.mce-tab:focus {
     text-align: center;
 }
 
-/* TinyMCE menus */
+/* TinyMCE menus *//* handled in skin, menu.less, collection.less
 .mce-menu,
 .mce-floatpanel.mce-popover {
 	border-color: rgba(0,0,0,0.15);
@@ -226,8 +226,8 @@ div.mce-tab:focus {
 .mce-menu-has-icons i.mce-ico {
 	line-height: 20px;
 }
-
-/* TinyMCE panel */
+*/
+/* TinyMCE panel *//* not needed, removed
 div.mce-panel {
 	border: 0;
 	background: #fff;
@@ -240,8 +240,8 @@ div.mce-panel {
 div.mce-tab {
 	line-height: 13px;
 }
-
-/* TinyMCE toolbars */
+*/
+/* TinyMCE toolbars *//* handled in skin, toolbar.less, toolbar-group.less
 div.mce-toolbar-grp {
 	border-bottom: 1px solid #ddd;
 	background: #f5f5f5;
@@ -256,12 +256,9 @@ div.mce-inline-toolbar-grp {
 	box-sizing: border-box;
 	margin-bottom: 8px;
 	position: absolute;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	max-width: 98%;
-	z-index: 100100; /* Same as the other TinyMCE "panels" */
+	z-index: 100100; /* Same as the other TinyMCE "panels" *//*
 }
 
 div.mce-inline-toolbar-grp > div.mce-stack-layout {
@@ -347,11 +344,11 @@ div.mce-inline-toolbar-grp.mce-arrow-full > div {
 	width: 100%;
 	overflow-x: auto;
 }
-
+*/
 div.mce-toolbar-grp > div {
 	padding: 3px;
 }
-
+/* not needed
 .has-dfw div.mce-toolbar-grp .mce-toolbar.mce-first {
 	padding-right: 32px;
 }
@@ -374,7 +371,7 @@ div.mce-path {
 .mce-path .mce-divider {
 	font-size: 12px;
 }
-
+*/
 .mce-toolbar .mce-btn,
 .qt-dfw {
 	border-color: transparent;
@@ -383,21 +380,21 @@ div.mce-path {
 	text-shadow: none;
 	cursor: pointer;
 }
-
+/*
 .mce-btn .mce-txt {
 	direction: inherit;
 	text-align: inherit;
 }
 
-.mce-toolbar .mce-btn-group .mce-btn,
+.mce-toolbar .mce-btn-group .mce-btn, */
 .qt-dfw {
 	border: 1px solid transparent;
 	margin: 2px;
 	border-radius: 2px;
 }
 
-.mce-toolbar .mce-btn-group .mce-btn:hover,
-.mce-toolbar .mce-btn-group .mce-btn:focus,
+/*.mce-toolbar .mce-btn-group .mce-btn:hover,
+.mce-toolbar .mce-btn-group .mce-btn:focus, */
 .qt-dfw:hover,
 .qt-dfw:focus {
 	background: #fafafa;
@@ -407,14 +404,14 @@ div.mce-path {
 	outline: none;
 }
 
-.mce-toolbar .mce-btn-group .mce-btn.mce-active,
-.mce-toolbar .mce-btn-group .mce-btn:active,
+/*.mce-toolbar .mce-btn-group .mce-btn.mce-active,
+.mce-toolbar .mce-btn-group .mce-btn:active, */
 .qt-dfw.active {
 	background: #ebebeb;
 	border-color: #555d66;
 	box-shadow: inset 0 2px 5px -3px rgba( 0, 0, 0, 0.3 );
 }
-
+/* handled in skin, toolbar-button.less
 .mce-btn.mce-active,
 .mce-btn.mce-active button,
 .mce-btn.mce-active:hover button,
@@ -446,12 +443,12 @@ div.mce-path {
 	border-color: transparent;
 }
 
-.mce-toolbar .mce-btn button,
+.mce-toolbar .mce-btn button, */
 .qt-dfw {
 	padding: 2px 3px;
 	line-height: normal;
 }
-
+/* not needed
 .mce-toolbar .mce-listbox button {
 	font-size: 13px;
 	line-height: 20px;
@@ -481,8 +478,12 @@ div.mce-path {
 	width: 20px;
 	background: #555d66;
 }
+*/
+.tox .tox-swatches__picker-btn svg {
+	fill: currentColor;
+}
 
-.mce-toolbar .mce-btn-group .mce-btn.mce-primary {
+.mce-toolbar .mce-btn-group .mce-btn.mce-primary { /* wplink context toolbar */
 	min-width: 0;
 	background: #0085ba;
 	border-color: #0073aa #006799 #006799;
@@ -519,7 +520,7 @@ div.mce-path {
 }
 
 /* mce listbox */
-.mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
+.mce-toolbar .tox .tox-tbtn--select {
     border-radius: 0;
     direction: ltr;
     background: #fff;
@@ -527,11 +528,11 @@ div.mce-path {
     box-shadow: inset 0 1px 1px -1px rgba(0, 0, 0, .2);
 }
 
-.mce-toolbar .mce-btn-group .mce-btn.mce-listbox:hover,
-.mce-toolbar .mce-btn-group .mce-btn.mce-listbox:focus {
+.mce-toolbar .tox .tox-tbtn--select:hover,
+.mce-toolbar .tox .tox-tbtn--select:focus {
 	border-color: #b4b9be;
 }
-
+/* not needed, chevron is SVG
 .mce-panel .mce-btn i.mce-caret {
 	border-top: 6px solid #555d66;
 	margin-left: 2px;
@@ -565,43 +566,41 @@ div.mce-path {
 	background: transparent;
 	outline: none;
 }
-
+*//* handled in skin, collection.less
 .mce-menu .mce-menu-item:hover,
 .mce-menu .mce-menu-item.mce-selected,
 .mce-menu .mce-menu-item:focus,
 .mce-menu .mce-menu-item-normal.mce-active,
 .mce-menu .mce-menu-item-preview.mce-active {
-	background: #0073aa; /* See color scheme. */
+	background: #0073aa;
 	color: #fff;
 }
 
 .mce-menu-item:hover .mce-text,
 .mce-menu-item:focus .mce-text,
 .mce-menu-item:hover .mce-ico,
-.mce-menu-item:focus .mce-ico,
-.mce-menu-item:hover .mce-menu-shortcut,
-.mce-menu-item:focus .mce-menu-shortcut,
-.mce-menu-item.mce-active .mce-menu-shortcut,
-.mce-menu-item.mce-disabled:hover .mce-text,
-.mce-menu-item.mce-disabled:hover .mce-ico {
+.mce-menu-item:focus .mce-ico,*/
+.tox-menu .tox-collection__item-accessory,
+.tox-menu .tox-collection__item--active .tox-collection__item-accessory,
+.tox-menu .tox-collection__item--state-disabled:hover .tox-collection__item-label,
+.tox-menu .tox-collection__item--state-disabled:hover .tox-collection__item-icon {
 	color: inherit;
 }
 
-.mce-menu .mce-menu-item.mce-disabled {
+.tox-menu .tox-collection__item--state-disabled {
 	cursor: default;
 }
 
-.mce-menu .mce-menu-item.mce-disabled:hover {
+.tox-menu .tox-collection__item--state-disabled:hover {
     background: #ccc;
 }
 
-/* Menubar */
-div.mce-menubar {
+/* Menubar *//* handled in skin, menubar.less
+div.tox-menubar {
 	border-color: #e5e5e5;
-	background: #fff;
 	border-width: 0px 0px 1px;
 }
-
+*//* handled in skin, menubar-button.less
 .mce-menubar .mce-menubtn:hover,
 .mce-menubar .mce-menubtn.mce-active,
 .mce-menubar .mce-menubtn:focus {
@@ -631,8 +630,8 @@ div.mce-menu .mce-menu-item-sep,
 .mce-menu-has-icons i.mce-ico:before {
 	margin-left: -2px;
 }
-
-/* Keyboard shortcuts position */
+*/
+/* Keyboard shortcuts position *//* handled in skin, collection.less
 .mce-menu.mce-menu-align .mce-menu-item-normal {
 	position: relative;
 }
@@ -641,8 +640,8 @@ div.mce-menu .mce-menu-item-sep,
 	bottom: 0.6em;
 	font-size: 0.9em;
 }
-
-/* Buttons in modals */
+*/
+/* Buttons in modals *//* handled in skin, dialog.less
 .mce-primary button,
 .mce-primary button i {
 	text-align: center;
@@ -668,8 +667,8 @@ div.mce-menu .mce-menu-item-sep,
 	white-space: nowrap;
 	box-shadow: 0 1px 0 #cccccc;
 }
-
-/* Remove the dotted border on :focus and the extra padding in Firefox */
+*/
+/* Remove the dotted border on :focus and the extra padding in Firefox *//*
 .mce-window .mce-btn::-moz-focus-inner {
 	border-width: 0;
 	border-style: none;
@@ -750,8 +749,8 @@ div.mce-menu .mce-menu-item-sep,
 	text-overflow: ellipsis;
 	width: 82px;
 }
-
-/* Charmap modal */
+*/
+/* Charmap modal *//* not available -- no distinct class
 .mce-charmap {
 	margin: 3px;
 }
@@ -771,8 +770,8 @@ div.mce-menu .mce-menu-item-sep,
 	height: 22px;
 	line-height: 22px;
 }
-
-/* TinyMCE tooltips */
+*/
+/* TinyMCE tooltips *//* not available, see https://github.com/tinymce/tinymce/issues/7377
 .mce-tooltip {
 	margin-top: 2px;
 }
@@ -783,18 +782,15 @@ div.mce-menu .mce-menu-item-sep,
 	color: #fff;
 	font-size: 12px;
 }
-
+*/
 /* TinyMCE icons */
 .mce-ico {
-	font-family: 'tinymce', Arial;
-}
-
-.mce-btn-small .mce-ico {
-    font-family: 'tinymce-small', Arial;
+	display: inline-block;
+	vertical-align: text-top;
+	background-size: cover; /*used to be in skin*/
 }
 
 .mce-toolbar .mce-ico {
-	color: #555d66;
 	line-height: 20px;
 	width: 20px;
 	height: 20px;
@@ -812,7 +808,7 @@ div.mce-menu .mce-menu-item-sep,
 	text-align: center;
 	text-shadow: none;
 }
-
+/* handled in skin, toolbar-button.less
 .mce-toolbar .mce-btn .mce-open {
 	line-height: 20px;
 }
@@ -822,7 +818,7 @@ div.mce-menu .mce-menu-item-sep,
 .mce-toolbar .mce-btn.mce-active .mce-open {
 	border-left-color: #23282d;
 }
-
+*//* handled in skin, notification.less
 div.mce-notification {
 	left: 10% !important;
 	right: 10%;
@@ -839,7 +835,7 @@ div.mce-notification {
 .mce-notification button.mce-close:focus {
 	color: #000;
 }
-
+*/
 i.mce-i-bold,
 i.mce-i-italic,
 i.mce-i-bullist,
@@ -1229,7 +1225,7 @@ i.mce-i-wp_code:before {
 	font-weight: 600;
 }
 
-.mce-toolbar .mce-btn-group .mce-btn.mce-wp-dfw,
+/*.mce-toolbar .mce-btn.mce-wp-dfw,*/
 .qt-dfw {
 	position: absolute;
 	top: 0;
@@ -1243,42 +1239,37 @@ i.mce-i-wp_code:before {
 }
 
 @media screen and ( max-width: 782px ) {
-	.mce-toolbar .mce-btn button,
+/*	.mce-toolbar .mce-btn button,*/
 	.qt-dfw {
 		padding: 6px 7px;
 	}
 
-	/* Compensate for the extra box shadow at the bottom of .mce-btn.mce-primary */
-	.mce-toolbar .mce-btn-group .mce-btn.mce-primary button {
-		padding: 6px 7px 5px;
-	}
-
-	.mce-toolbar .mce-btn-group .mce-btn {
+/*	.mce-toolbar .mce-btn {
 		margin: 1px;
-	}
+	} */
 
 	.qt-dfw {
 		width: 36px;
 		height: 34px;
 	}
 
-	.mce-toolbar .mce-btn-group .mce-btn.mce-wp-dfw {
+/*	.mce-toolbar .mce-btn.mce-wp-dfw {
 		margin: 4px 4px 0 0;
-	}
-
+	}*/
+/* not needed with SVG
 	.mce-toolbar .mce-colorbutton .mce-preview {
 		left: 8px;
 		bottom: 6px;
 	}
-
-	.mce-window .mce-btn {
-		padding: 2px 0;
+*/
+	.tox .tox-dialog .tox-button {
+		padding: 0.5em 1.2em;
 	}
 
-	.has-dfw div.mce-toolbar-grp .mce-toolbar.mce-first,
+/*	.has-dfw div.mce-toolbar-grp .mce-toolbar.mce-first,
 	.has-dfw .quicktags-toolbar {
 		padding-right: 40px;
-	}
+	}*/
 }
 
 @media screen and ( min-width: 782px ) {
@@ -1289,7 +1280,7 @@ i.mce-i-wp_code:before {
 		line-height: 24px;
 	}
 }
-
+/* Unused
 #wp_editbtns,
 #wp_gallerybtns {
 	padding: 2px;
@@ -1318,7 +1309,7 @@ i.mce-i-wp_code:before {
 	border-color: #555;
 	background-color: #ccc;
 }
-
+*/
 /*------------------------------------------------------------------------------
  wp-link
 ------------------------------------------------------------------------------*/
@@ -1725,6 +1716,7 @@ div.wp-link-preview a {
 	transition-duration: .05s;
 	transition-timing-function: ease-in-out;
 	cursor: pointer;
+	direction: ltr;
 }
 
 div.wp-link-preview a.wplink-url-error {
@@ -1741,6 +1733,7 @@ div.wp-link-input input {
 	width: 300px;
 	padding: 3px;
 	box-sizing: border-box;
+	direction: ltr;
 }
 
 .mce-toolbar div.wp-link-preview ~ .mce-btn,
@@ -1807,7 +1800,7 @@ div.wp-link-input input {
 /* =Overlay Body
 -------------------------------------------------------------- */
 
-.mce-fullscreen {
+.tox-fullscreen {
 	z-index: 100010;
 }
 
@@ -1823,11 +1816,11 @@ div.wp-link-input input {
 	direction: rtl;
 }
 
-/* rtl:ignore */
+/* rtl:ignore *//* not needed
 .mce-rtl .mce-listbox i.mce-caret {
 	left: 6px;
 }
-
+*/
 html:lang(he-il) .rtl .wp-switch-editor,
 html:lang(he-il) .rtl .quicktags-toolbar input  {
  	font-family: Arial, sans-serif;

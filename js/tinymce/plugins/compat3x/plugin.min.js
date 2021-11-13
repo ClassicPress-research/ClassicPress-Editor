@@ -185,6 +185,10 @@
 					}
 				}
 				tinyMCEPreInit.mceInit[ed].theme = 'silver';
+				if (tinyMCEPreInit.mceInit[ed].skin === 'lightgray' &&
+					 window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					tinyMCEPreInit.mceInit[ed].skin = 'darkgray';
+				}
 			}
 		}
 	} );
@@ -201,4 +205,8 @@
 			}
 		}
 		init.theme = 'silver';
-	} );
+		if (init.skin === 'lightgray' &&
+		 window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			init.skin = 'darkgray';
+		}
+} );

@@ -9,7 +9,7 @@
   box-sizing: content-box;
   color: #2A3746;
   cursor: auto;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
   font-size: 1em;
   font-style: normal;
   font-weight: normal;
@@ -25,8 +25,8 @@
   box-sizing: inherit;
   color: inherit;
   cursor: inherit;
-  direction: inherit;
-/*  font-family: inherit;
+/*  direction: inherit;
+  font-family: inherit;
   font-size: inherit;
   font-style: inherit;
   font-weight: inherit;
@@ -62,13 +62,13 @@
   text-align: right;
 }
 .tox-tinymce {
-  border: 0 solid #000000;
+  border: 0 solid #444857;
   border-radius: 0px;
   box-shadow: none;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
   overflow: hidden;
   position: relative;
   visibility: inherit !important;
@@ -79,12 +79,12 @@
 }
 .tox-tinymce-inline .tox-editor-header {
   background-color: transparent;
-  border: 0 solid #000000;
+  border: 0 solid #444857;
   border-radius: 0px;
   box-shadow: none;
 }
 .tox-tinymce-aux {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
   z-index: 100101;
 }
 .tox-tinymce *:focus,
@@ -104,7 +104,7 @@ button::-moz-focus-inner {
 }
 .tox .accessibility-issue__description {
   align-items: stretch;
-  border: 1px solid #000000;
+  border: 1px solid #444857;
   border-radius: 3px;
   display: flex;
   justify-content: space-between;
@@ -118,7 +118,7 @@ button::-moz-focus-inner {
   margin-bottom: 0.25em;
 }
 .tox .accessibility-issue__description > *:last-child:not(:only-child) {
-  border-color: #000000;
+  border-color: #444857;
   border-style: solid;
 }
 .tox .accessibility-issue__repair {
@@ -126,11 +126,11 @@ button::-moz-focus-inner {
 }
 .tox .tox-dialog__body-content .accessibility-issue--info .accessibility-issue__description {
   background-color: rgba(0, 142, 194, 0.5);
-  border-color: #008ec2;
+  border-color: #008EC2;
   color: #f0f0f0;
 }
 .tox .tox-dialog__body-content .accessibility-issue--info .accessibility-issue__description > *:last-child {
-  border-color: #008ec2;
+  border-color: #008EC2;
 }
 .tox .tox-dialog__body-content .accessibility-issue--info .tox-form__group h2 {
   color: #f0f0f0;
@@ -231,11 +231,11 @@ button::-moz-focus-inner {
   flex: 0 0 auto;
 }
 .tox .tox-button {
-  background-color: #008ec2;
+  background-color: #008EC2;
   background-image: none;
   background-position: 0 0;
   background-repeat: repeat;
-  border-color: #008ec2;
+  border-color: #008EC2;
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
@@ -244,7 +244,7 @@ button::-moz-focus-inner {
   color: #f0f0f0;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
   font-size: 0.875em;
   font-style: normal;
   font-weight: bold;
@@ -259,9 +259,9 @@ button::-moz-focus-inner {
   white-space: nowrap;
 }
 .tox .tox-button[disabled] {
-  background-color: #008ec2;
+  background-color: #008EC2;
   background-image: none;
-  border-color: #008ec2;
+  border-color: #008EC2;
   box-shadow: none;
   color: rgba(240, 240, 240, 0.5);
   cursor: not-allowed;
@@ -288,11 +288,11 @@ button::-moz-focus-inner {
   color: #f0f0f0;
 }
 .tox .tox-button--secondary {
-  background-color: #3d546f;
+  background-color: #444e58;
   background-image: none;
   background-position: 0 0;
   background-repeat: repeat;
-  border-color: #3d546f;
+  border-color: #444e58;
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
@@ -308,30 +308,30 @@ button::-moz-focus-inner {
   text-transform: none;
 }
 .tox .tox-button--secondary[disabled] {
-  background-color: #3d546f;
+  background-color: #444e58;
   background-image: none;
-  border-color: #3d546f;
+  border-color: #444e58;
   box-shadow: none;
   color: rgba(240, 240, 240, 0.5);
 }
 .tox .tox-button--secondary:focus:not(:disabled) {
-  background-color: #34485f;
+  background-color: #39424a;
   background-image: none;
-  border-color: #34485f;
+  border-color: #39424a;
   box-shadow: none;
   color: #f0f0f0;
 }
 .tox .tox-button--secondary:hover:not(:disabled) {
-  background-color: #34485f;
+  background-color: #39424a;
   background-image: none;
-  border-color: #34485f;
+  border-color: #39424a;
   box-shadow: none;
   color: #f0f0f0;
 }
 .tox .tox-button--secondary:active:not(:disabled) {
-  background-color: #2b3b4e;
+  background-color: #2e353b;
   background-image: none;
-  border-color: #2b3b4e;
+  border-color: #2e353b;
   box-shadow: none;
   color: #f0f0f0;
 }
@@ -352,7 +352,7 @@ button::-moz-focus-inner {
   box-sizing: border-box;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
   font-size: 1em;
   font-weight: normal;
   line-height: 1.3;
@@ -370,26 +370,26 @@ button::-moz-focus-inner {
   color: #f0f0f0;
 }
 .tox .tox-button--naked[disabled] {
-  background-color: #3d546f;
-  border-color: #3d546f;
+  background-color: #444e58;
+  border-color: #444e58;
   box-shadow: none;
   color: rgba(240, 240, 240, 0.5);
 }
 .tox .tox-button--naked:hover:not(:disabled) {
-  background-color: #34485f;
-  border-color: #34485f;
+  background-color: #39424a;
+  border-color: #39424a;
   box-shadow: none;
   color: #f0f0f0;
 }
 .tox .tox-button--naked:focus:not(:disabled) {
-  background-color: #34485f;
-  border-color: #34485f;
+  background-color: #39424a;
+  border-color: #39424a;
   box-shadow: none;
   color: #f0f0f0;
 }
 .tox .tox-button--naked:active:not(:disabled) {
-  background-color: #2b3b4e;
-  border-color: #2b3b4e;
+  background-color: #2e353b;
+  border-color: #2e353b;
   box-shadow: none;
   color: #f0f0f0;
 }
@@ -432,11 +432,11 @@ button::-moz-focus-inner {
 }
 .tox .tox-checkbox__icons .tox-checkbox-icon__indeterminate svg {
   display: none;
-  fill: #008ec2;
+  fill: #008EC2;
 }
 .tox .tox-checkbox__icons .tox-checkbox-icon__checked svg {
   display: none;
-  fill: #008ec2;
+  fill: #008EC2;
 }
 .tox .tox-checkbox--disabled {
   color: rgba(240, 240, 240, 0.5);
@@ -465,7 +465,7 @@ button::-moz-focus-inner {
 }
 .tox input.tox-checkbox__input:focus + .tox-checkbox__icons {
   border-radius: 2px;
-  box-shadow: inset 0 0 0 1px #008ec2;
+  box-shadow: inset 0 0 0 1px #008EC2;
   padding: calc(0.25em - 1px);
 }
 .tox:not([dir=rtl]) .tox-checkbox__label {
@@ -503,7 +503,7 @@ button::-moz-focus-inner {
 }
 .tox .tox-collection--list .tox-collection__group {
   border-bottom-width: 0;
-  border-color: #1a1a1a;
+  border-color: #5a6074;
   border-left-width: 0;
   border-right-width: 0;
   border-style: solid;
@@ -514,7 +514,7 @@ button::-moz-focus-inner {
   border-top-width: 0;
 }
 .tox .tox-collection__group-heading {
-  background-color: #333333;
+  background-color: #717890;
   color: #f0f0f0;
   cursor: default;
   font-size: 12px;
@@ -551,18 +551,18 @@ button::-moz-focus-inner {
   padding: 0.25em;
 }
 .tox .tox-collection--list .tox-collection__item--enabled {
-  background-color: #384d66;
+  background-color: #2e353b;
   color: #f0f0f0;
 }
 .tox .tox-collection--list .tox-collection__item--active {
-  background-color: #008ec2;
+  background-color: #008EC2;
 }
 .tox .tox-collection--toolbar .tox-collection__item--enabled {
   background-color: #757d87;
   color: #f0f0f0;
 }
 .tox .tox-collection--toolbar .tox-collection__item--active {
-  background-color: #008ec2;
+  background-color: #008EC2;
 }
 .tox .tox-collection--grid .tox-collection__item--enabled {
   background-color: #757d87;
@@ -642,8 +642,8 @@ button::-moz-focus-inner {
   display: none;
 }
 .tox .tox-collection--horizontal {
-  background-color: #2b3b4e;
-  border: 1px solid #1a1a1a;
+  background-color: #2e353b;
+  border: 1px solid #5a6074;
   border-radius: 3px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -721,7 +721,7 @@ button::-moz-focus-inner {
   align-self: flex-end;
 }
 .tox:not([dir=rtl]) .tox-collection--horizontal .tox-collection__group:not(:last-of-type) {
-  border-right: 1px solid #000000;
+  border-right: 1px solid #444857;
 }
 .tox:not([dir=rtl]) .tox-collection--list .tox-collection__item > *:not(:first-child) {
   margin-left: 0.5em;
@@ -737,7 +737,7 @@ button::-moz-focus-inner {
   margin-left: 1em;
 }
 .tox[dir=rtl] .tox-collection--horizontal .tox-collection__group:not(:last-of-type) {
-  border-left: 1px solid #000000;
+  border-left: 1px solid #444857;
 }
 .tox[dir=rtl] .tox-collection--list .tox-collection__item > *:not(:first-child) {
   margin-right: 0.5em;
@@ -915,15 +915,15 @@ button::-moz-focus-inner {
   margin-right: auto;
 }
 .tox .tox-comment-thread {
-  background: #2b3b4e;
+  background: #2e353b;
   position: relative;
 }
 .tox .tox-comment-thread > *:not(:first-child) {
   margin-top: 0.5em;
 }
 .tox .tox-comment {
-  background: #2b3b4e;
-  border: 1px solid #000000;
+  background: #2e353b;
+  border: 1px solid #444857;
   border-radius: 3px;
   box-shadow: 0 4px 8px 0 rgba(42, 55, 70, 0.1);
   padding: 0.5em 0.5em 1em 0.5em;
@@ -970,7 +970,7 @@ button::-moz-focus-inner {
   text-align: center;
 }
 .tox .tox-comment-thread__overlay::after {
-  background: #2b3b4e;
+  background: #2e353b;
   bottom: 0;
   content: "";
   display: flex;
@@ -999,7 +999,7 @@ button::-moz-focus-inner {
   margin-top: 1em;
 }
 .tox .tox-comment__gradient::after {
-  background: linear-gradient(rgba(43, 59, 78, 0), #2b3b4e);
+  background: linear-gradient(rgba(46, 53, 59, 0), #2e353b);
   bottom: 0;
   content: "";
   display: block;
@@ -1009,7 +1009,7 @@ button::-moz-focus-inner {
   width: 100%;
 }
 .tox .tox-comment__overlay {
-  background: #2b3b4e;
+  background: #2e353b;
   bottom: 0;
   display: flex;
   flex-direction: column;
@@ -1044,8 +1044,8 @@ button::-moz-focus-inner {
   z-index: 10;
 }
 .tox .tox-comment__overlaytext p {
-  background-color: #2b3b4e;
-  box-shadow: 0 0 8px 8px #2b3b4e;
+  background-color: #2e353b;
+  box-shadow: 0 0 8px 8px #2e353b;
   color: #f0f0f0;
   text-align: center;
 }
@@ -1054,7 +1054,7 @@ button::-moz-focus-inner {
 }
 .tox .tox-comment__busy-spinner {
   align-items: center;
-  background-color: #2b3b4e;
+  background-color: #2e353b;
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -1127,7 +1127,7 @@ button::-moz-focus-inner {
   z-index: 1100;
 }
 .tox .tox-dialog-wrap__backdrop {
-  background-color: rgba(4, 5, 6, 0.7);
+  background-color: rgba(23, 30, 38, 0.6);
   bottom: 0;
   left: 0;
   position: absolute;
@@ -1139,8 +1139,8 @@ button::-moz-focus-inner {
   background-color: #040506;
 }
 .tox .tox-dialog {
-  background-color: #2b3b4e;
-  border-color: #000000;
+  background-color: #2e353b;
+  border-color: #444857;
   border-radius: 3px;
   border-style: solid;
   border-width: 1px;
@@ -1166,8 +1166,8 @@ button::-moz-focus-inner {
 }
 .tox .tox-dialog__header {
   align-items: center;
-  background-color: #2b3b4e;
-  border-bottom: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid #444857;
   color: #f0f0f0;
   display: flex;
   font-size: 1em;
@@ -1193,10 +1193,10 @@ button::-moz-focus-inner {
   margin-left: auto;
 }
 .tox .tox-dialog__title {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
   font-size: 1.25em;
   font-style: normal;
-  font-weight: normal;
+  font-weight: bold;
   line-height: 1.3;
   margin: 0;
   text-transform: none;
@@ -1247,8 +1247,8 @@ button::-moz-focus-inner {
   background-color: rgba(0, 142, 194, 0.1);
 }
 .tox .tox-dialog__body-nav-item--active {
-  border-bottom: 2px solid #008ec2;
-  color: #008ec2;
+  border-bottom: 2px solid #008EC2;
+  color: #008EC2;
 }
 .tox .tox-dialog__body-content {
   box-sizing: border-box;
@@ -1276,7 +1276,7 @@ button::-moz-focus-inner {
   margin-top: 0;
 }
 .tox .tox-dialog__body-content a {
-  color: #008ec2;
+  color: #008EC2;
   cursor: pointer;
   text-decoration: none;
 }
@@ -1357,8 +1357,8 @@ button::-moz-focus-inner {
 }
 .tox .tox-dialog__footer {
   align-items: center;
-  background-color: #2b3b4e;
-  border-top: 1px solid #000000;
+  background-color: #2e353b;
+  border-top: 1px solid #444857;
   display: flex;
   justify-content: space-between;
   padding: 0.5em 1em;
@@ -1369,7 +1369,7 @@ button::-moz-focus-inner {
 }
 .tox .tox-dialog__busy-spinner {
   align-items: center;
-  background-color: rgba(4, 5, 6, 0.7);
+  background-color: rgba(23, 30, 38, 0.6);
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -1388,7 +1388,7 @@ button::-moz-focus-inner {
   padding-bottom: 0.5em;
 }
 .tox .tox-dialog__table tbody tr {
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #444857;
 }
 .tox .tox-dialog__table tbody tr:last-child {
   border-bottom: none;
@@ -1480,7 +1480,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-dropzone {
   align-items: center;
   background: #fff;
-  border: 2px dashed #000000;
+  border: 2px dashed #444857;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -1511,7 +1511,7 @@ body.tox-dialog__disable-scroll {
   width: 100%;
 }
 .tox.tox-inline-edit-area {
-  border: 1px dotted #000000;
+  border: 1px dotted #444857;
 }
 .tox .tox-editor-container {
   display: flex;
@@ -1621,14 +1621,14 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-color-input span:hover:not([aria-disabled=true]),
 .tox .tox-color-input span:focus:not([aria-disabled=true]) {
-  border-color: #008ec2;
+  border-color: #008EC2;
   cursor: pointer;
 }
 .tox .tox-color-input span::before {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.25) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.25) 75%);
   background-position: 0 0, 0 6px, 6px -6px, -6px 0;
   background-size: 12px 12px;
-  border: 1px solid #2b3b4e;
+  border: 1px solid #2e353b;
   border-radius: 2px;
   box-sizing: border-box;
   content: '';
@@ -1757,15 +1757,15 @@ body.tox-dialog__disable-scroll {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: #2b3b4e;
-  border-color: #000000;
+  background-color: #2e353b;
+  border-color: #444857;
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
   box-shadow: none;
   box-sizing: border-box;
   color: #f0f0f0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
   font-size: 1em;
   line-height: 24px;
   margin: 0;
@@ -1777,15 +1777,15 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-textfield[disabled],
 .tox .tox-textarea[disabled] {
-  background-color: #222f3e;
+  background-color: #23282d;
   color: rgba(240, 240, 240, 0.85);
   cursor: not-allowed;
 }
 .tox .tox-textfield:focus,
 .tox .tox-listboxfield .tox-listbox--select:focus,
 .tox .tox-textarea:focus {
-  background-color: #2b3b4e;
-  border-color: #008ec2;
+  background-color: #2e353b;
+  border-color: #008EC2;
   box-shadow: none;
   outline: none;
 }
@@ -1800,7 +1800,7 @@ body.tox-dialog__disable-scroll {
   border: 0;
   border-color: transparent;
   box-shadow: unset;
-  color: #008ec2;
+  color: #008EC2;
   cursor: pointer;
   display: block;
   margin: 0;
@@ -1821,7 +1821,7 @@ body.tox-dialog__disable-scroll {
   position: relative;
 }
 .tox .tox-listboxfield .tox-listbox--select[disabled] {
-  background-color: #19232e;
+  background-color: #181b1f;
   color: rgba(240, 240, 240, 0.85);
   cursor: not-allowed;
 }
@@ -1857,15 +1857,15 @@ body.tox-dialog__disable-scroll {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: #2b3b4e;
-  border-color: #000000;
+  background-color: #2e353b;
+  border-color: #444857;
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
   box-shadow: none;
   box-sizing: border-box;
   color: #f0f0f0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
   font-size: 1em;
   line-height: 24px;
   margin: 0;
@@ -1876,7 +1876,7 @@ body.tox-dialog__disable-scroll {
   width: 100%;
 }
 .tox .tox-selectfield select[disabled] {
-  background-color: #19232e;
+  background-color: #181b1f;
   color: rgba(240, 240, 240, 0.85);
   cursor: not-allowed;
 }
@@ -1884,8 +1884,8 @@ body.tox-dialog__disable-scroll {
   display: none;
 }
 .tox .tox-selectfield select:focus {
-  background-color: #2b3b4e;
-  border-color: #008ec2;
+  background-color: #2e353b;
+  border-color: #008EC2;
   box-shadow: none;
   outline: none;
 }
@@ -2045,7 +2045,7 @@ body.tox-dialog__disable-scroll {
   width: 20em;
 }
 .tox .tox-insert-table-picker > div {
-  border-color: #000000;
+  border-color: #444857;
   border-style: solid;
   border-width: 0 1px 1px 0;
   box-sizing: border-box;
@@ -2084,10 +2084,10 @@ body.tox-dialog__disable-scroll {
   /* stylelint-enable */
 }
 .tox .tox-menu {
-  background-color: #2b3b4e;
-  border: 1px solid #000000;
+  background-color: #2e353b;
+  border: 1px solid #444857;
   border-radius: 3px;
-  box-shadow: 0 4px 8px 0 rgba(42, 55, 70, 0.1);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
@@ -2114,8 +2114,8 @@ body.tox-dialog__disable-scroll {
   margin: 0;
 }
 .tox .tox-menubar {
-  background: url("data:image/svg+xml;charset=utf8,%3Csvg height='35px' viewBox='0 0 40 35px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='34px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0 #222f3e;
-  background-color: #222f3e;
+  background: url("data:image/svg+xml;charset=utf8,%3Csvg height='35px' viewBox='0 0 40 35px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='34px' width='100' height='1' fill='%23444857'/%3E%3C/svg%3E") left 0 top 0 #2A3746;
+  background-color: #2A3746;
   display: flex;
   flex: 0 0 auto;
   flex-shrink: 0;
@@ -2123,7 +2123,7 @@ body.tox-dialog__disable-scroll {
   padding: 0 2px 0 6px;
 }
 .tox.tox-tinymce:not(.tox-tinymce-inline) .tox-editor-header:not(:first-child) .tox-menubar {
-  border-top: 1px solid #000000;
+  border-top: 1px solid #444857;
 }
 /* Deprecated. Remove in next major release */
 .tox .tox-mbtn {
@@ -2155,9 +2155,9 @@ body.tox-dialog__disable-scroll {
   cursor: not-allowed;
 }
 .tox .tox-mbtn:focus:not(:disabled) {
-  background: #4a5562;
+  background: transparent;
   border: 1px solid transparent;
-  box-shadow: none;
+  box-shadow: 0 0 2px 1px #008EC2;
   color: #f0f0f0;
 }
 .tox .tox-mbtn--active {
@@ -2167,9 +2167,9 @@ body.tox-dialog__disable-scroll {
   color: #f0f0f0;
 }
 .tox .tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active) {
-  background: #4a5562;
+  background: transparent;
   border: 1px solid transparent;
-  box-shadow: none;
+  box-shadow: 0 0 2px 1px #008EC2;
   color: #f0f0f0;
 }
 .tox .tox-mbtn__select-label {
@@ -2362,8 +2362,8 @@ body.tox-dialog__disable-scroll {
   transition: all 0.15s, visibility 0s, opacity 0.075s ease 0.075s;
 }
 .tox .tox-pop__dialog {
-  background-color: #222f3e;
-  border: 1px solid #000000;
+  background-color: #23282d;
+  border: 1px solid #444857;
   border-radius: 3px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   min-width: 0;
@@ -2397,13 +2397,13 @@ body.tox-dialog__disable-scroll {
   top: 100%;
 }
 .tox .tox-pop.tox-pop--bottom::after {
-  border-color: #222f3e transparent transparent transparent;
+  border-color: #23282d transparent transparent transparent;
   border-width: 8px;
   margin-left: -8px;
   margin-top: -1px;
 }
 .tox .tox-pop.tox-pop--bottom::before {
-  border-color: #000000 transparent transparent transparent;
+  border-color: #444857 transparent transparent transparent;
   border-width: 9px;
   margin-left: -9px;
 }
@@ -2414,13 +2414,13 @@ body.tox-dialog__disable-scroll {
   transform: translateY(-100%);
 }
 .tox .tox-pop.tox-pop--top::after {
-  border-color: transparent transparent #222f3e transparent;
+  border-color: transparent transparent #23282d transparent;
   border-width: 8px;
   margin-left: -8px;
   margin-top: 1px;
 }
 .tox .tox-pop.tox-pop--top::before {
-  border-color: transparent transparent #000000 transparent;
+  border-color: transparent transparent #444857 transparent;
   border-width: 9px;
   margin-left: -9px;
 }
@@ -2431,12 +2431,12 @@ body.tox-dialog__disable-scroll {
   transform: translateY(-50%);
 }
 .tox .tox-pop.tox-pop--left::after {
-  border-color: transparent #222f3e transparent transparent;
+  border-color: transparent #23282d transparent transparent;
   border-width: 8px;
   margin-left: -15px;
 }
 .tox .tox-pop.tox-pop--left::before {
-  border-color: transparent #000000 transparent transparent;
+  border-color: transparent #444857 transparent transparent;
   border-width: 10px;
   margin-left: -19px;
 }
@@ -2447,12 +2447,12 @@ body.tox-dialog__disable-scroll {
   transform: translateY(-50%);
 }
 .tox .tox-pop.tox-pop--right::after {
-  border-color: transparent transparent transparent #222f3e;
+  border-color: transparent transparent transparent #23282d;
   border-width: 8px;
   margin-left: -1px;
 }
 .tox .tox-pop.tox-pop--right::before {
-  border-color: transparent transparent transparent #000000;
+  border-color: transparent transparent transparent #444857;
   border-width: 10px;
   margin-left: -1px;
 }
@@ -2472,7 +2472,7 @@ body.tox-dialog__disable-scroll {
   min-height: 0;
 }
 .tox .tox-sidebar {
-  background-color: #222f3e;
+  background-color: #23282d;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -2523,14 +2523,14 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-slider__rail {
   background-color: transparent;
-  border: 1px solid #000000;
+  border: 1px solid #444857;
   border-radius: 2px;
   height: 10px;
   min-width: 120px;
   width: 100%;
 }
 .tox .tox-slider__handle {
-  background-color: #008ec2;
+  background-color: #008EC2;
   border: 2px solid #00698f;
   border-radius: 2px;
   box-shadow: none;
@@ -2578,8 +2578,8 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-statusbar {
   align-items: center;
-  background-color: #222f3e;
-  border-top: 1px solid #000000;
+  background-color: #23282d;
+  border-top: 1px solid #444857;
   color: #f0f0f0;
   display: flex;
   flex: 0 0 auto;
@@ -2665,7 +2665,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-throbber__busy-spinner {
   align-items: center;
-  background-color: rgba(34, 47, 62, 0.6);
+  background-color: rgba(35, 40, 45, 0.6);
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -2864,13 +2864,13 @@ body.tox-dialog__disable-scroll {
   color: rgba(240, 240, 240, 0.5);
 }
 .tox .tox-toolbar-overlord {
-  background-color: #222f3e;
+  background-color: #23282d;
 }
 .tox .tox-toolbar,
 .tox .tox-toolbar__primary,
 .tox .tox-toolbar__overflow {
   background: none;
-  background-color: #222f3e;
+  background-color: #23282d;
   display: flex;
   flex: 0 0 auto;
   flex-shrink: 0;
@@ -2892,7 +2892,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-menubar + .tox-toolbar,
 .tox .tox-menubar + .tox-toolbar-overlord .tox-toolbar__primary {
-  border-top: 1px solid #000000;
+  border-top: 1px solid #444857;
   margin-top: -1px;
 }
 .tox .tox-toolbar--scrolling {
@@ -2907,11 +2907,11 @@ body.tox-dialog__disable-scroll {
 }
 .tox-tinymce:not(.tox-tinymce-inline) .tox-editor-header:not(:first-child) .tox-toolbar:first-child,
 .tox-tinymce:not(.tox-tinymce-inline) .tox-editor-header:not(:first-child) .tox-toolbar-overlord:first-child .tox-toolbar__primary {
-  border-top: 1px solid #000000;
+  border-top: 1px solid #444857;
 }
 .tox.tox-tinymce-aux .tox-toolbar__overflow {
-  background-color: #222f3e;
-  border: 1px solid #000000;
+  background-color: #23282d;
+  border: 1px solid #444857;
   border-radius: 3px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
@@ -2930,10 +2930,10 @@ body.tox-dialog__disable-scroll {
   flex-wrap: nowrap;
 }
 .tox:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
-  border-right: 1px solid #000000;
+  border-right: 1px solid #444857;
 }
 .tox[dir=rtl] .tox-toolbar__group:not(:last-of-type) {
-  border-left: 1px solid #000000;
+  border-left: 1px solid #444857;
 }
 .tox .tox-tooltip {
   display: inline-block;
@@ -2941,7 +2941,7 @@ body.tox-dialog__disable-scroll {
   position: relative;
 }
 .tox .tox-tooltip__body {
-  background-color: #3d546f;
+  background-color: #444e58;
   border-radius: 3px;
   box-shadow: 0 2px 4px rgba(42, 55, 70, 0.3);
   color: rgba(240, 240, 240, 0.75);
@@ -2957,14 +2957,14 @@ body.tox-dialog__disable-scroll {
 .tox .tox-tooltip--down .tox-tooltip__arrow {
   border-left: 0.5em solid transparent;
   border-right: 0.5em solid transparent;
-  border-top: 0.5em solid #3d546f;
+  border-top: 0.5em solid #444e58;
   bottom: 0;
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
 }
 .tox .tox-tooltip--up .tox-tooltip__arrow {
-  border-bottom: 0.5em solid #3d546f;
+  border-bottom: 0.5em solid #444e58;
   border-left: 0.5em solid transparent;
   border-right: 0.5em solid transparent;
   left: 50%;
@@ -2974,7 +2974,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-tooltip--right .tox-tooltip__arrow {
   border-bottom: 0.5em solid transparent;
-  border-left: 0.5em solid #3d546f;
+  border-left: 0.5em solid #444e58;
   border-top: 0.5em solid transparent;
   position: absolute;
   right: 0;
@@ -2983,7 +2983,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-tooltip--left .tox-tooltip__arrow {
   border-bottom: 0.5em solid transparent;
-  border-right: 0.5em solid #3d546f;
+  border-right: 0.5em solid #444e58;
   border-top: 0.5em solid transparent;
   left: 0;
   position: absolute;
@@ -2991,7 +2991,7 @@ body.tox-dialog__disable-scroll {
   transform: translateY(-50%);
 }
 .tox .tox-well {
-  border: 1px solid #000000;
+  border: 1px solid #444857;
   border-radius: 3px;
   padding: 0.5em;
   width: 100%;
@@ -3006,7 +3006,7 @@ body.tox-dialog__disable-scroll {
   margin: 0;
 }
 .tox .tox-custom-editor {
-  border: 1px solid #000000;
+  border: 1px solid #444857;
   border-radius: 3px;
   display: flex;
   flex: 1;
