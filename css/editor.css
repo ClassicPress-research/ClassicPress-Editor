@@ -258,7 +258,7 @@ div.mce-inline-toolbar-grp {
 	position: absolute;
 	user-select: none;
 	max-width: 98%;
-	z-index: 100100; /* Same as the other TinyMCE "panels" *//*
+	z-index: 100100; /* Same as the other TinyMCE "panels" *//* pop.less
 }
 
 div.mce-inline-toolbar-grp > div.mce-stack-layout {
@@ -520,17 +520,15 @@ div.mce-path {
 }
 
 /* mce listbox */
-.mce-toolbar .tox .tox-tbtn--select {
+.tox .tox-toolbar .tox-tbtn--bespoke {
     border-radius: 0;
-    direction: ltr;
-    background: #fff;
-    border: 1px solid #ddd;
+    border: 1px outset rgba(128, 128, 128, 0.6);
     box-shadow: inset 0 1px 1px -1px rgba(0, 0, 0, .2);
 }
 
-.mce-toolbar .tox .tox-tbtn--select:hover,
-.mce-toolbar .tox .tox-tbtn--select:focus {
-	border-color: #b4b9be;
+.tox .tox-toolbar .tox-tbtn--bespoke:hover,
+.tox .tox-toolbar .tox-tbtn--bespoke:focus {
+	border-color: currentColor;
 }
 /* not needed, chevron is SVG
 .mce-panel .mce-btn i.mce-caret {
