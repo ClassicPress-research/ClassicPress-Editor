@@ -2,8 +2,8 @@
 /**
  * -----------------------------------------------------------------------------
  * Plugin Name: ClassicPress Editor update - Experimental
- * Description: .24 fixes 'listbox' style. Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
- * Version: 1.0.24-alpha
+ * Description: .25 turns off context menu. Update to TinyMCE version 5.10.  This plugin is not yet intended for production use.
+ * Version: 1.0.25-alpha
  * Author: John Alarcon, Joy Reynolds, and ClassicPress Contributors
  * -----------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
@@ -115,6 +115,7 @@ function try_tinymce5_tinymce_init( $mceInit, $editor_id ) {
 		$mceInit['toolbar_location'] = 'top'; //auto was added and set as the default in TinyMCE 5.3
 
 		$mceInit['custom_ui_selector'] = '.wp-editor-tools';
+		$mceInit['contextmenu'] = false;
 	}
 	return $mceInit;
 }
